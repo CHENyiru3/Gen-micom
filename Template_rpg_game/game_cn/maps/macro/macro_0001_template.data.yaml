@@ -1,0 +1,65 @@
+# macro_0001_template — Template Region Map Data
+
+version: 0.1.0
+updated: 2026-01-29
+
+meta:
+  map_id: macro_0001_template
+  name: Template Region Map
+  type: macro
+  scale: hex
+  hex_size: 6 miles
+
+regions:
+  - hex: "0000"
+    name: "[Region Name]"
+    terrain: [forest/mountain/plain/etc.]
+    features: []
+    resources: []
+    danger_level: [low/medium/high]
+
+  - hex: "0001"
+    name: "[Region Name]"
+    terrain: [forest/mountain/plain/etc.]
+    features: []
+    resources: []
+    danger_level: [low/medium/high]
+
+settlements:
+  - id: "set_001"
+    name: "[Settlement Name]"
+    hex: "0000"
+    type: [city/town/village]
+    population: [number]
+    description: "[Description]"
+
+landmarks:
+  - id: "lmk_001"
+    name: "[Landmark Name]"
+    hex: "0000"
+    type: [ruin/cave/temple/etc.]
+    description: "[Description]"
+
+travel:
+  base_speed: "6 miles/day"
+  modifiers:
+    - terrain: forest
+      modifier: 0.75
+    - terrain: mountain
+      modifier: 0.5
+    - terrain: road
+      modifier: 1.25
+
+encounters:
+  base_chance: 0.15
+  per_turn:
+    - terrain: forest
+      chance: 0.2
+    - terrain: mountain
+      chance: 0.1
+
+resources:
+  - terrain: forest
+    resources: [wood, game, herbs]
+  - terrain: mountain
+    resources: [ore, stone, gems]

@@ -1,1 +1,0 @@
-campaigns/campaign_0001
