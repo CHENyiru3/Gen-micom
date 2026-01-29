@@ -1,0 +1,1 @@
+campaigns/campaign_0001/root/OBJECT_INDEX.md

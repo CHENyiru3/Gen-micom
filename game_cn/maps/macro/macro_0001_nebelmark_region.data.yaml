@@ -1,0 +1,25 @@
+map_id: "macro_0001_nebelmark_region"
+name: "Nebelmark 区域图"
+type: "macro"
+scale: "hex"
+version: "0.1.0"
+updated: "2026-01-29"
+
+legend:
+  symbols: {}
+
+pois: []
+edges: []
+regions: []
+
+fog:
+  policy: "fog-of-war"
+  revealed: []
+
+links:
+  sessions: []
+  quests: []
+  locations: []
+  npcs: []
+  factions: []
+
