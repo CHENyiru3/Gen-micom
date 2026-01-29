@@ -1,162 +1,79 @@
-# Chronicles of the Misty Border: The Transient (Engineered Tabletop RPG Repo)
+# Chronicles of the Misty Border: The Transient (Research‑Oriented RPG)
 
-This repository externalizes "long-term memory/state/settings" as files, with the LLM acting only as a turn executor, ensuring:
-- Restartability (can recover even with zero context)
-- Traceability (all key events in `campaigns/<id>/sessions/`)
-- Compressibility (hot cache reads only a few files)
+![Engine](https://img.shields.io/badge/Engine-Shared-2E86AB?style=flat-square)
+![Cartridge](https://img.shields.io/badge/Cartridge-Hot--Swappable-3B8B3B?style=flat-square)
+![Campaign](https://img.shields.io/badge/Campaign-Persistent-5C6BC0?style=flat-square)
+![RAG](https://img.shields.io/badge/RAG-4x80%20%7C%208%E2%80%9312-8E44AD?style=flat-square)
+![Language](https://img.shields.io/badge/Language-English-555?style=flat-square)
 
----
-
-## 1) Quick Start (New Campaign)
-
-1. Send: `<initialize>` (entry first reads `engine/System.md`)
-2. Complete two types of configuration per `engine/INIT_PROTOCOL.md`:
-   - Player preferences: write to `campaigns/<id>/PLAYER_PROFILE.md`
-   - Player character: write to `campaigns/<id>/characters/PCs/pc_current.md`
-3. Initialization creates a new session and updates:
-   - `campaigns/<id>/sessions/CURRENT_SESSION.md`
-   - `campaigns/<id>/STATE_PANEL.md`
-   - `campaigns/<id>/HOT_PACK.md`
-   - `campaigns/<id>/OBJECT_INDEX.md`
-
-> The current repository has been reset to "blank campaign". Old campaign archived: `archive/campaign_clermond_2026-01-29/`
+**Keywords**: Engine / Cartridge / Campaign  
+**Goal**: stable long‑running play under minimal context budgets.
 
 ---
 
-## 0) Campaign Directory (Core vs Save Separation)
+## 0) Structure & Entry
 
-This repository separates "reusable core" from "each campaign's save/state":
+| Layer | Responsibility | Location |
+|------|----------------|----------|
+| Engine | Protocols / rules / RAG / save specs | `engine/` (symlink → `GC_gamer/engine_cn/`) |
+| Cartridge | World content | `cartridges/<id>/` |
+| Campaign | Runtime state | `campaigns/<id>/` |
 
-- **Engine (shared)**: `engine/` (symlink here, actual location in `GC_gamer/engine_en/`)
-- **Cartridge (world content)**: `cartridges/<cartridge_id>/...`
-- **Template Cartridge**: `cartridges/template/` (starting point for all new cartridges)
-- **Campaign (one per campaign)**: `campaigns/<campaign_id>/...`
-
-Current active campaign: `ACTIVE.md`
-
-Minimal steps to switch campaign:
-1) Update `ACTIVE.md` to point to new directory
-2) Update target campaign `CAMPAIGN.md` cartridge binding (if needed)
-
-### Automation (Recommended)
-
-```bash
-python3 engine/scripts/campaign_manager.py new --id campaign_0002
-python3 engine/scripts/campaign_manager.py switch --path campaigns/campaign_0001
-```
-
-See: `engine/CAMPAIGN_PROTOCOL.md`
-
-### User-Friendly Method (No Need to Run Python)
-
-You only need to input control commands in conversation, AI will execute scripts and file changes for you:
-- `<new campaign campaign_0002>`: Create and switch to new campaign (entry first reads `engine/System.md`)
-- `<switch campaign campaigns/campaign_0001>`: Switch to existing campaign (entry first reads `engine/System.md`)
-- `<initialize>`: Run initialization wizard in current campaign (entry first reads `engine/System.md`)
+Pointer: `ACTIVE.md`
 
 ---
 
-## 3.1 Conversation Command Entry Convention (Unified Entry)
+## 1) Quick Start (Initialize)
 
-The following commands all first read `engine/System.md` as entry router, then read corresponding protocol files:
-- `<initialize>` → `engine/INIT_PROTOCOL.md`
-- `<new campaign ...>` / `<switch campaign ...>` → `engine/CAMPAIGN_PROTOCOL.md`
-- `<continue>` / `<hot start>` → `engine/HOT_START.md`
-
----
-
-## 2) What is Hot Cache and How to Use
-
-Hot cache goal: Continue playing each turn/restart by reading the fewest files.
-
-You only need to know two files:
-- `campaigns/<id>/HOT_PACK.md`: **Next turn context package** (contains only 1 `CONTEXT_PACK_NEXT` comment block)
-- `campaigns/<id>/OBJECT_INDEX.md`: **Active object index** (NPC/quest/location/map "pointer + 1-line summary")
-
-Usually players don't need to manually edit them; they should be automatically patched by each turn's `ARCHIVE_DELTA` output.
-
-See specifications:
-- `engine/mechanics/CONTEXT_PACK.md`
-- `engine/ARCHIVE_DELTA.md`
+Command: `<initialize>`  
+Entry: `engine/System.md` → `engine/INIT_PROTOCOL.md`  
+Writes:
+- `campaigns/<id>/PLAYER_PROFILE.md`
+- `campaigns/<id>/characters/PCs/pc_current.md`
+- `campaigns/<id>/sessions/`
+- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/HOT_PACK.md`
 
 ---
 
-## 3) Hot Start (Recovery/Continue)
+## 2) New Cartridge / New Campaign
 
-When changing devices/new window/context lost, execute per `engine/HOT_START.md` (recommended to directly send `<continue>` or `<hot start>`).
-Unified entry: First read `engine/System.md`, then load per `HOT_START.md` order.
+**New Cartridge**  
+Copy: `cartridges/template_card/` → `cartridges/<new_card_id>/`  
+Edit: `CARTRIDGE.md` (routes/aliases/invariants/feature_flags)
 
-Hot start reading order (conceptually):
-1. `campaigns/<id>/HOT_PACK.md`
-2. `campaigns/<id>/PLAYER_PROFILE.md` (only read "preference summary")
-3. `campaigns/<id>/OBJECT_INDEX.md`
-4. `campaigns/<id>/sessions/CURRENT_SESSION.md` → Last 1-3 Decisions in current session file
-5. `campaigns/<id>/STATE_PANEL.md`
-6. `campaigns/<id>/index.md` (only read navigation)
-
-If repository not yet initialized, prompts to re-`<initialize>`.
+**New Campaign (dialogue automation)**  
+Send: `<new campaign campaigns/<new_campaign>>`  
+AI: creates campaign + binds `cartridge_id`
 
 ---
 
-## 4) How to Interact Efficiently with AI (Strongly Recommended)
+## 3) Hot Start & Recovery
 
-### 4.1 Use Tags to Input, Reduce Ambiguity
-
-Prefer using `engine/CLI_SPEC.md` command headers:
-- `[ACT]` / `[LOOK]` / `[ASK]` / `[FIGHT]` / `[CAST]` / `[MANAGE]` / `[OOC]`
-
-### 4.2 Copy HUD Short Codes, Reduce Match Failures
-
-Each turn AI gives HUD (`L# / N# / I# / Q#`). You can directly reference:
-- `[ACT]{Talk to N1}`
-- `[ACT]{Investigate L2}`
-
-### 4.3 OOC Rules/Protocol Questions
-
-Use `[OOC]` to ask, and have AI point to specific file as authoritative source (avoid drift).
+Command: `<hot start>` or `<continue>`  
+Entry: `engine/System.md` → `engine/HOT_START.md`  
+Load order: `ACTIVE.md` → `CAMPAIGN.md` → `CARTRIDGE.md` → `HOT_PACK.md`
 
 ---
 
-## 5) Story Preference Optimization (Personalized DM)
+## 4) Hot‑Swap & Resume
 
-Preference file: `campaigns/<id>/PLAYER_PROFILE.md`
-
-Usage:
-- Fill during initialization (recommended)
-- You can also OOC modify preferences anytime (e.g., "more horror/faster pace/less combat"), AI will patch `campaigns/<id>/PLAYER_PROFILE.md`
-
-Context compression strategy:
-- Each turn only need to compress 1 line from preference summary (e.g., `STYLE=...`) into `campaigns/<id>/HOT_PACK.md flags=`, others not read often.
+- New cartridge: see Section 2  
+- Resume old progress: `<switch campaign campaigns/<old_campaign>>` → `<continue>`
 
 ---
 
-## 6) Stable Sources of Truth (Don't Mix)
+## 5) Save & Fiction Sync
 
-- Kernel protocol (how to run): `engine/KERNEL_PROMPT.md`
-- World entry (pointer/routing): `engine/System.md`
-- Event source (history): `campaigns/<id>/sessions/`
-- Player-side state panel: `campaigns/<id>/STATE_PANEL.md`
-- Backend world state index: `campaigns/<id>/WORLD_STATE.md`
-- Incremental archive specification: `engine/ARCHIVE_DELTA.md`
-- Session end drift check: `engine/CONTINUITY_CHECK.md`
+**Save**: per‑turn `ARCHIVE_DELTA` (append/patch)  
+**Fiction**: `Writing/PIPELINE.md` synced from session decisions
 
 ---
 
-## 7) Hidden DM Files (Enhance Experience: Suspense/Planning/Behind-the-Scenes Motivation)
+## 6) Method Constraints
 
-These files belong to DM/AI's behind-the-scenes tools, **strictly prohibited to directly reference or spoiler in player-visible output**:
-
-- `.DM_SECRETS.md`: Unrevealed truth/behind-settings (migrate to `campaigns/<id>/sessions/` and content packs after triggered)
-- `.DM_PLANNER.md`: Story planning and suspense engine (mainline/Fronts/clue inventory/twists/next session beats)
-
-They are stored with the campaign: `campaigns/<id>/` (no longer using root subdirectory).
-
----
-
-## 8) Now Start Creating New Cartridge Story
-
-1. Copy `cartridges/template/` → `cartridges/<new_card_id>/` (maintain lore/locations/quests/characters/maps structure).
-2. Edit `cartridges/<new_card_id>/CARTRIDGE.md`: Complete `routes`, `aliases`, `invariants` and `feature_flags` for enabled features (like maps/fiction/governance).
-3. Use `python3 engine/scripts/campaign_manager.py new --id campaigns/<new_campaign>` to create new campaign.
-4. Modify the new campaign's `CAMPAIGN.md` `cartridge_id` to the newly created `<new_card_id>` and lock `cartridge_version_lock`.
-5. Switch to that campaign (`<switch campaigns/<new_campaign>`), all Engine modules continue sharing, world provided by new cartridge.
+- Command‑head routing: ACT / LOOK / ASK / FIGHT / CAST / MANAGE / OOC  
+- RAG throttling: ≤4 snippets, ≤80 chars/snippet, ROUTE_FACTS 8–12  
+- Index summaries: `RAG_HEAD` at top of indices  
+- Hot cache: `HOT_PACK` ≤100 lines  
+- Shared Engine: `engine_cn` reused
