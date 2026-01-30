@@ -30,6 +30,22 @@ def repo_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
+def _assert_not_template_root(root: Path) -> None:
+    if "Blank_Cartidge_template" in root.parts:
+        raise RuntimeError(
+            "refusing to write inside Blank_Cartidge_template; "
+            "run this script under Game_Cartridge/<cartridge_root>/game_cn/"
+        )
+
+
+def _assert_path_not_in_template(path: Path) -> None:
+    if "Blank_Cartidge_template" in path.parts:
+        raise RuntimeError(
+            "refusing to target Blank_Cartidge_template; "
+            "new campaigns must live in Game_Cartridge/<cartridge_root>/game_cn/"
+        )
+
+
 def ensure_symlink(path: Path) -> None:
     if not path.exists() and not path.is_symlink():
         raise RuntimeError(f"expected {path} to exist or be a symlink")
@@ -184,6 +200,7 @@ def _coalesce(primary: str | None, fallback: str | None) -> str:
 
 def cmd_init(args: argparse.Namespace) -> None:
     root = repo_root()
+    _assert_not_template_root(root)
     current_rel = read_current_campaign(root)
     if not current_rel:
         raise RuntimeError("ACTIVE.md is empty; run campaign_manager.py switch/new first")
@@ -379,8 +396,10 @@ def cmd_init(args: argparse.Namespace) -> None:
 
 def cmd_switch(args: argparse.Namespace) -> None:
     root = repo_root()
+    _assert_not_template_root(root)
     rel = args.path.strip().rstrip("/")
     campaign_dir = (root / rel).resolve()
+    _assert_path_not_in_template(campaign_dir)
     if not campaign_dir.exists():
         raise RuntimeError(f"campaign not found: {rel}")
     validate_campaign_layout(campaign_dir)
@@ -391,8 +410,10 @@ def cmd_switch(args: argparse.Namespace) -> None:
 
 def cmd_new(args: argparse.Namespace) -> None:
     root = repo_root()
+    _assert_not_template_root(root)
     template_rel = args.template.strip().rstrip("/")
     template_dir = (root / template_rel).resolve()
+    _assert_path_not_in_template(template_dir)
     if not template_dir.exists():
         raise RuntimeError(f"template not found: {template_rel}")
 
@@ -400,6 +421,7 @@ def cmd_new(args: argparse.Namespace) -> None:
     if not new_rel.startswith("campaigns/"):
         new_rel = f"campaigns/{new_rel}"
     new_dir = root / new_rel
+    _assert_path_not_in_template(new_dir.resolve())
 
     if new_dir.exists():
         raise RuntimeError(f"destination already exists: {new_rel}")

@@ -63,6 +63,11 @@ Declare role at the start of each run:
 
 Scopes and restrictions are defined in `engine/ROLE_SYSTEMS.md`.
 
+## 0.6 Cartridge Boundary (Required)
+
+- New cartridges must be **sibling** to template: `Game_Cartridge/<cartridge_root>/game_cn/`
+- **Never** create new cartridges/campaigns inside `Game_Cartridge/Blank_Cartidge_template/`
+
 ---
 
 ## 1) World Instance: Content Pack Entry (Will Change)

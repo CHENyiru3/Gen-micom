@@ -59,6 +59,11 @@
 
 角色与读取范围详见 `engine/ROLE_SYSTEMS.md`，严禁越界读写。
 
+## 0.6 卡带边界（强制）
+
+- 新卡带必须与模板平级：`Game_Cartridge/<cartridge_root>/game_cn/`
+- **禁止**在 `Game_Cartridge/Blank_Cartidge_template/` 内创建任何新卡带/战役
+
 ---
 
 ## 1) 世界实例：内容包入口（会变）

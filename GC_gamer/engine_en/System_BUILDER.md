@@ -20,7 +20,10 @@
 ---
 
 ## 2) Campaign Creation Flow (Required)
-1. Copy template: `campaigns/_template` → `campaigns/<new_id>`
+1. **Confirm cartridge root**: `Game_Cartridge/<cartridge_root>/game_cn/`
+2. Copy template:  
+   `Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template`  
+   → `Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>`
 2. Bind cartridge: update `campaigns/<new_id>/CAMPAIGN.md`
    - `cartridge_id=<new_card_id>`
    - `cartridge_version_lock=...`
@@ -46,6 +49,9 @@
 ## 4) Output Scope
 - Only write `campaigns/<new_id>/**` and `ACTIVE.md`
 - Do not write `cartridges/**` unless explicitly asked
+
+## 4.1 No Template Pollution (Required)
+- **Never** create new cartridges/campaigns inside `Game_Cartridge/Blank_Cartidge_template/`
 
 ---
 

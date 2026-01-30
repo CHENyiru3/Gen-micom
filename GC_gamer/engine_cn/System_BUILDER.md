@@ -20,7 +20,10 @@
 ---
 
 ## 2) 创建战役流程（强制）
-1. 复制模板：`campaigns/_template` → `campaigns/<new_id>`
+1. **先确认卡带根目录**：`Game_Cartridge/<cartridge_root>/game_cn/`
+2. 复制模板：  
+   `Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template`  
+   → `Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>`
 2. 绑定卡带：更新 `campaigns/<new_id>/CAMPAIGN.md`
    - `cartridge_id=<new_card_id>`
    - `cartridge_version_lock=...`
@@ -46,6 +49,9 @@
 ## 4) 输出与写入范围
 - 只写 `campaigns/<new_id>/**` 与 `ACTIVE.md`
 - 不写 `cartridges/**`（除非用户明确要求）
+
+## 4.1 禁止模板污染（强制）
+- **禁止**在 `Game_Cartridge/Blank_Cartidge_template/` 内创建任何新卡带或战役
 
 ---
 

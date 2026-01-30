@@ -8,10 +8,14 @@
 
 - Engine（共享）：`engine/`（协议/机制/脚本）
 - Cartridge（世界内容）：`cartridges/<cartridge_id>/`
-- Template 卡带：`Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/`（所有新卡带的起点）
-- Template 存档：`Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template/`（新战役存档骨架）
-- Campaign（存档）：`campaigns/<campaign_id>/`
+- Template 卡带：`Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/`（仅模板，不可直接写入）
+- Template 存档：`Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template/`（仅模板，不可直接写入）
+- Campaign（存档）：`Game_Cartridge/<cartridge_root>/game_cn/campaigns/<campaign_id>/`
 - 当前战役指针：`ACTIVE.md`
+
+**强制规则**：
+- 新卡带必须创建在 **独立目录**：`Game_Cartridge/<cartridge_root>/game_cn/`
+- 任何 `card_*` / 新卡带 **不得**创建在 `Blank_Cartidge_template` 内
 
 ---
 
@@ -23,6 +27,9 @@
 python3 engine/scripts/campaign_manager.py new --id campaign_0002
 python3 engine/scripts/campaign_manager.py switch --path campaigns/campaign_0001
 ```
+
+> 注意：脚本在当前卡带根目录下运行（`Game_Cartridge/<cartridge_root>/game_cn/`）。  
+> 禁止在 `Blank_Cartidge_template` 下创建新战役。
 
 ### 用户无需运行脚本（对话式控制）
 
@@ -38,7 +45,9 @@ AI 会在后台执行脚本，并完成 `ACTIVE.md` 的更新。
 
 当用户说“新开战役”时，DM 必须按顺序执行（内部/工具层完成）：
 
-1. 复制模板 `campaigns/_template` → `campaigns/<new_id>`
+1. 在 **独立卡带根目录** 下复制模板  
+   `Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template`  
+   → `Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>`
 2. 更新 `ACTIVE.md` 为新路径
 3. 更新新战役的 `CAMPAIGN.md`（cartridge_id/版本锁）
 4. 运行 `<初始化>`（按 `engine/INIT_PROTOCOL.md` 完成落盘）

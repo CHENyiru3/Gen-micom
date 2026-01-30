@@ -38,6 +38,10 @@
 ## 2.3 Routing Index (Recommended)
 - Maintain `cartridges/<id>/ROUTES.md` (command header → index paths)
 
+## 2.4 Cartridge Boundary (Required)
+- New cartridges must live at: `Game_Cartridge/<cartridge_root>/game_cn/`
+- **Never** write new cartridge content inside `Game_Cartridge/Blank_Cartidge_template/`
+
 ---
 
 ## 3) Index Format Rules (Required)

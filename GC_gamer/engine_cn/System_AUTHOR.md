@@ -38,6 +38,10 @@
 ## 2.3 路由索引（推荐）
 - 维护 `cartridges/<id>/ROUTES.md`（命令头 → 索引路径）
 
+## 2.4 卡带边界（强制）
+- 新卡带必须位于：`Game_Cartridge/<cartridge_root>/game_cn/`
+- **禁止**在 `Game_Cartridge/Blank_Cartidge_template/` 内写入新卡带内容
+
 ---
 
 ## 3) 索引格式规范（强制）
