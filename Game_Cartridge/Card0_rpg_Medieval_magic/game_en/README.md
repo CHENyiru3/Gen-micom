@@ -29,7 +29,7 @@ This repository separates "reusable core" from "each campaign's save/state":
 
 - **Engine (shared)**: `engine/` (symlink here, actual location in `GC_gamer/engine_en/`)
 - **Cartridge (world content)**: `cartridges/<cartridge_id>/...`
-- **Template Cartridge**: `cartridges/template/` (starting point for all new cartridges)
+- **Template Cartridge**: `../../Blank_Cartidge_template/game_cn/cartridges/template/` (starting point for all new cartridges)
 - **Campaign (one per campaign)**: `campaigns/<campaign_id>/...`
 
 Current active campaign: `ACTIVE.md`
@@ -155,7 +155,7 @@ They are stored with the campaign: `campaigns/<id>/` (no longer using root subdi
 
 ## 8) Now Start Creating New Cartridge Story
 
-1. Copy `cartridges/template/` → `cartridges/<new_card_id>/` (maintain lore/locations/quests/characters/maps structure).
+1. Copy `../../Blank_Cartidge_template/game_cn/cartridges/template/` → `cartridges/<new_card_id>/` (maintain lore/locations/quests/characters/maps structure).
 2. Edit `cartridges/<new_card_id>/CARTRIDGE.md`: Complete `routes`, `aliases`, `invariants` and `feature_flags` for enabled features (like maps/fiction/governance).
 3. Use `python3 engine/scripts/campaign_manager.py new --id campaigns/<new_campaign>` to create new campaign.
 4. Modify the new campaign's `CAMPAIGN.md` `cartridge_id` to the newly created `<new_card_id>` and lock `cartridge_version_lock`.

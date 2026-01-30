@@ -39,7 +39,7 @@ Writes:
 ## 2) New Cartridge / New Campaign
 
 **New Cartridge**  
-Copy: `cartridges/template_card/` → `cartridges/<new_card_id>/`  
+Copy: `../../Blank_Cartidge_template/game_cn/cartridges/template/` → `cartridges/<new_card_id>/`  
 Edit: `CARTRIDGE.md` (routes/aliases/invariants/feature_flags)
 
 **New Campaign (dialogue automation)**  

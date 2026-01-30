@@ -29,7 +29,7 @@
 
 - **Engine（共享）**：`engine/`（此处为软链接，真实位置在 `GC_gamer/engine_cn/`）
 - **Cartridge（世界内容）**：`cartridges/<cartridge_id>/...`
-- **Template 卡带**：`cartridges/template/`（所有新卡带的起点）
+- **Template 卡带**：`../../Blank_Cartidge_template/game_cn/cartridges/template/`（所有新卡带的起点）
 - **Campaign（每个战役一份）**：`campaigns/<campaign_id>/...`
 
 当前激活战役：`ACTIVE.md`
@@ -155,7 +155,7 @@ python3 engine/scripts/campaign_manager.py switch --path campaigns/campaign_0001
 
 ## 8) 现在开始创建新的卡带故事
 
-1. 复制 `cartridges/template/` → `cartridges/<new_card_id>/`（保持 lore/locations/quests/characters/maps 等结构）。
+1. 复制 `../../Blank_Cartidge_template/game_cn/cartridges/template/` → `cartridges/<new_card_id>/`（保持 lore/locations/quests/characters/maps 等结构）。
 2. 编辑 `cartridges/<new_card_id>/CARTRIDGE.md`：补全 `routes`、`aliases`、`invariants` 以及是否启用的 `feature_flags`（如地图/小说/治理）。
 3. 使用 `python3 engine/scripts/campaign_manager.py new --id campaigns/<new_campaign>` 创建新战役。
 4. 将新战役的 `CAMPAIGN.md` 里的 `cartridge_id` 修改为刚刚创建的 `<new_card_id>` 并锁定 `cartridge_version_lock`。

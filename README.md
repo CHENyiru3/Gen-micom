@@ -1,28 +1,44 @@
 # Gen-micom
 
-![Engine](https://img.shields.io/badge/Engine-Shared-2E86AB?style=flat-square)
-![Cartridge](https://img.shields.io/badge/Cartridge-Hot--Swappable-3B8B3B?style=flat-square)
-![Campaign](https://img.shields.io/badge/Campaign-Persistent-5C6BC0?style=flat-square)
-![RAG](https://img.shields.io/badge/RAG-4x80%20%7C%208%E2%80%9312-8E44AD?style=flat-square)
 
-Research‑oriented Engine–Cartridge–Campaign framework for low‑context, long‑running RPG execution.
+Gen-micom (Generative AI Famicom) is a prompt-engineered Engine–Cartridge–Campaign framework for low‑context, long‑running RPG execution.  
+It separates **protocols (Engine)**, **content (Cartridge)**, and **runtime state (Campaign)** to enable hot‑swaps and durable play, and the whole structure is based on markdown files, which means you can run this with any AI model. 
 
-**Primary Entry (CN)**  
-- Engine: `GC_gamer/engine_cn/`  
+---
+
+## 1) Project Overview
+
+Primary entry (CN):
+- Engine: `GC_gamer/engine_cn/`
 - Cartridge & Campaign: `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/`
 
-**Documentation**  
-- 中文：`Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/README_CN.md`  
+Docs:
+- 中文：`Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/README_CN.md`
 - English: `Game_Cartridge/Card0_rpg_Medieval_magic/game_en/README_EN.md`
 
 ---
 
-## Architecture Summary
+## 2) Usage (Quick Start)
 
-| Layer | Responsibility | Location |
-|------|----------------|----------|
-| Engine | Protocols, CLI, RAG, save rules | `GC_gamer/engine_cn/` |
-| Cartridge | World content (read‑only) | `.../cartridges/<id>/` |
-| Campaign | Runtime state (read‑write) | `.../campaigns/<id>/` |
+1. Open the cartridge repo docs (CN or EN).
+2. Create or switch a campaign via dialogue commands.
+3. Initialize with `<初始化>` / `<initialize>`.
+4. Continue with `<继续>` / `<continue>`.
 
-Pointer: `ACTIVE.md`
+---
+
+## 3) Create a Cartridge 
+
+1. Copy template:
+   `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/template/`
+   → `.../cartridges/<new_card_id>/`
+2. For campaigns, use:
+   `Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template/`
+2. Edit `CARTRIDGE.md` (routes / aliases / invariants / feature_flags).
+3. Fill minimal index files:
+   - `lore/INDEX.md`
+   - `locations/LOCATION_INDEX.md`
+   - `quests/QUEST_LOG.md`
+   - `characters/NPCs/npc_roster.md`
+   - `maps/MAP_INDEX.md`
+4. Bind it to a new campaign via `<新战役 campaigns/<new_campaign>>`.

@@ -39,7 +39,7 @@
 ## 2) 创建新卡带 / 新战役
 
 **新卡带（模板起步）**  
-复制：`cartridges/template_card/` → `cartridges/<new_card_id>/`  
+复制：`../../Blank_Cartidge_template/game_cn/cartridges/template/` → `cartridges/<new_card_id>/`  
 更新：`CARTRIDGE.md`（routes/aliases/invariants/feature_flags）
 
 **新战役（对话自动化）**  
