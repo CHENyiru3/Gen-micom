@@ -1,7 +1,8 @@
 # ARCHIVE_DELTA.md — Incremental Archive Specification (Stable)
 
-> **Goal**: Externalize and make "memory/state" traceable; each turn only makes minimal changes (append/patch), never rewrites entire files.
-> **适用范围**: Turn-end persistence, map updates, object archive updates, initialization to disk.
+> **Goal**: Externalize and make "memory/state" traceable; each turn only makes minimal changes (append/patch), never rewrites entire files.  
+> **Scope**: Turn-end persistence, map updates, object archive updates, initialization to disk.  
+> **Write mode**: must be written via JSON tool_calls (`write_patch` / `append_session`), not rendered in chat.
 
 ---
 
@@ -9,7 +10,7 @@
 
 - Only allow `append` or minimal `patch`; never rewrite entire files.
 - `campaigns/<id>/sessions/` is the event source of truth: each turn must **append** a Decision to the current session file.
-- Mutable state files (e.g., `campaigns/<id>/STATE_PANEL.md`, `campaigns/<id>/HOT_PACK.md`, `campaigns/<id>/PLAYER_PROFILE.md`, `campaigns/<id>/GOVERNANCE_PANEL.md`) only do chapter-level patches.
+- Mutable state files (e.g., `campaigns/<id>/STATE_PANEL.json`, `campaigns/<id>/HOT_PACK.json`, `campaigns/<id>/PLAYER_PROFILE.md`, `campaigns/<id>/GOVERNANCE_PANEL.md`) only do chapter-level patches.
 - If conflicts are found: use `campaigns/<id>/sessions/` as the standard, write a "correction note" in the current turn's Decision.
 
 ---
@@ -18,35 +19,15 @@
 
 At the end of the reply (invisible to players):
 
-```md
-<!-- ARCHIVE_DELTA
-files:
-  - path: campaigns/<id>/sessions/session_YYYY-MM-DD_slug.md
-    append: |
-      ## Decision: ...
-      - Real time: ...
-      - In-world time: ...
-      - Player input: ...
-      - Resolution: ...
-      - Consequences: ...
-      - Indicators: ...
-      - Clocks: ...
-  - path: campaigns/<id>/HOT_PACK.md
-    patch: |
-      <!-- CONTEXT_PACK_NEXT
-      ...
-      -->
--->
-```
 
 ---
 
 ## 3) Recommended "Minimal Persistence Set" (at least per turn)
 
 - `campaigns/<id>/sessions/<current>.md`: append Decision
-- `campaigns/<id>/HOT_PACK.md`: patch latest `CONTEXT_PACK_NEXT`
-- `campaigns/<id>/STATE_PANEL.md`: patch (only changed chapters)
-- `campaigns/<id>/OBJECT_INDEX.md`: patch (only active pointer and 1-line summary)
+- `campaigns/<id>/HOT_PACK.json`: patch latest `CONTEXT_PACK_NEXT`
+- `campaigns/<id>/STATE_PANEL.json`: patch (only changed chapters)
+- `campaigns/<id>/OBJECT_INDEX.json`: patch (only active pointer and 1-line summary)
 
 Initialization turns also require:
 - `campaigns/<id>/sessions/CURRENT_SESSION.md`: patch to point to new session file
@@ -58,4 +39,4 @@ Initialization turns also require:
 ## 4) Patch Writing Suggestions (reduce ambiguity)
 
 - Patches only include "new content of target chapter/table" (don't include whole-page copies).
-- Table fields must remain stable (see `engine/mechanics/STATE_PANEL_SPEC.md`, `engine/mechanics/GOVERNANCE_PANEL_SPEC.md`).
+- Table fields must remain stable (see `engine/mechanics/skills_repo/rpg-dm-function-calling-local/references/panels.json`, `engine/mechanics/GOVERNANCE_PANEL_SPEC.md`).

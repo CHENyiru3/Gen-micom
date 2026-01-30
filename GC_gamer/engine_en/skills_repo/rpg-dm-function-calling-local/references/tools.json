@@ -1,0 +1,451 @@
+{
+  "tooling_version": "0.1.0",
+  "strict": true,
+  "tools": [
+    {
+      "name": "read_file",
+      "description": "Read a file by path (read-only)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "max_lines": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 400
+          }
+        },
+        "required": [
+          "path"
+        ]
+      }
+    },
+    {
+      "name": "read_index",
+      "description": "Read index files with RAG_HEAD only",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "head_only": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "path",
+          "head_only"
+        ]
+      }
+    },
+    {
+      "name": "write_patch",
+      "description": "Apply patch operations to a file",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "append",
+              "prepend",
+              "replace"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "mode",
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "route_lookup",
+      "description": "Map command header to index paths using ROUTES.md",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "routes_path": {
+            "type": "string"
+          },
+          "command_head": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "routes_path",
+          "command_head"
+        ]
+      }
+    },
+    {
+      "name": "fetch_facts",
+      "description": "Fetch minimal facts from indexed files",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          }
+        },
+        "required": [
+          "paths",
+          "limit"
+        ]
+      }
+    },
+    {
+      "name": "append_session",
+      "description": "Append a decision block to current session",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "session_path": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_path",
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "update_hot_pack",
+      "description": "Patch HOT_PACK.json with latest minimal context",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "append",
+              "prepend",
+              "replace"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path",
+          "mode",
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "update_mainline_panel",
+      "description": "Patch MAINLINE_PANEL.json",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "append",
+              "prepend",
+              "replace"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path",
+          "mode",
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "update_state_panel",
+      "description": "Patch STATE_PANEL.json",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "append",
+              "prepend",
+              "replace"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path",
+          "mode",
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "update_object_index",
+      "description": "Patch OBJECT_INDEX.json",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "append",
+              "prepend",
+              "replace"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path",
+          "mode",
+          "content"
+        ]
+      }
+    },
+    {
+      "name": "copy_template",
+      "description": "Copy a template directory to a new campaign path",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string"
+          },
+          "dst": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "src",
+          "dst"
+        ]
+      }
+    },
+    {
+      "name": "bind_campaign",
+      "description": "Bind a campaign to cartridge_id and version lock",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          },
+          "cartridge_id": {
+            "type": "string"
+          },
+          "version_lock": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path",
+          "cartridge_id",
+          "version_lock"
+        ]
+      }
+    },
+    {
+      "name": "init_campaign",
+      "description": "Initialize campaign with preference + PC + start hook",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          },
+          "answers": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "campaign_path",
+          "answers"
+        ]
+      }
+    },
+    {
+      "name": "set_active",
+      "description": "Update ACTIVE.md to point to campaign path",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path"
+        ]
+      }
+    },
+    {
+      "name": "snapshot_update",
+      "description": "Update snapshot (keep last+current), update SESSION_INDEX",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path"
+        ]
+      }
+    },
+    {
+      "name": "compress_history",
+      "description": "Compress history before last turn into *_compressed.md",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path"
+        ]
+      }
+    },
+    {
+      "name": "load_snapshot",
+      "description": "Load snapshot + hot pack for read-only resume",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "campaign_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campaign_path"
+        ]
+      }
+    },
+    {
+      "name": "validate_no_new_facts",
+      "description": "Ensure load output has no new facts",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "snapshot_path": {
+            "type": "string"
+          },
+          "hot_pack_path": {
+            "type": "string"
+          },
+          "load_output": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "snapshot_path",
+          "hot_pack_path",
+          "load_output"
+        ]
+      }
+    },
+    {
+      "name": "register_handle",
+      "description": "Register @handle and aliases in CARTRIDGE + index",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "cartridge_path": {
+            "type": "string"
+          },
+          "index_path": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "cartridge_path",
+          "index_path",
+          "handle",
+          "aliases"
+        ]
+      }
+    },
+    {
+      "name": "validate_index_spec",
+      "description": "Validate index file against INDEX_SPEC",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      }
+    }
+  ]
+}

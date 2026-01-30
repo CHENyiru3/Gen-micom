@@ -16,8 +16,8 @@
 - `campaigns/<id>/CAMPAIGN.md`
 - `campaigns/<id>/sessions/CURRENT_SESSION.md`
 - 最新 `campaigns/<id>/sessions/session_*.md`（仅末尾 Decision）
-- `campaigns/<id>/HOT_PACK.md`
-- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/HOT_PACK.json`
+- `campaigns/<id>/STATE_PANEL.json`
 - `campaigns/<id>/index.md`
 
 ---
@@ -31,7 +31,7 @@
 ---
 
 ## 3) 读档规则（强制）
-- 读档只引用 `*_快照.md` + `HOT_PACK.md`
+- 读档只引用 `*_快照.md` + `HOT_PACK.json`
 - 输出必须标记为“读档摘要”
 - **禁止新增线索/NPC/地点/文本**
 
@@ -40,3 +40,9 @@
 ## 4) 写入范围
 - 仅写：`campaigns/<id>/**` 与 `ACTIVE.md`
 
+---
+
+## 5) Function Calling（强制）
+
+- 使用 `skills_repo/rpg-dm-function-calling-local/references/tools.json` 的工具定义；只输出 JSON tool_calls。
+- 保存/压缩/读档必须使用 `snapshot_update` / `compress_history` / `load_snapshot`。

@@ -44,7 +44,7 @@
 | `RAG_RULES.md` | RAG检索规则 | 需要检索时 |
 | `CONTEXT_PACK.md` | Context Pack规范（稳定） | 上下文恢复/粘贴包时 |
 | `CONTEXT_PACK_EXAMPLES.md` | Context Pack示例（可变） | 需要参考时 |
-| `STATE_PANEL_SPEC.md` | STATE_PANEL字段规范（稳定） | 维护面板格式时 |
+| `skills_repo/rpg-dm-function-calling-local/references/panels.json` | STATE_PANEL字段规范（稳定） | 维护面板格式时 |
 
 ---
 

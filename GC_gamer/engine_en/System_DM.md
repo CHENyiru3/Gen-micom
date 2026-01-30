@@ -14,10 +14,10 @@
 1. `ACTIVE.md`
 2. `campaigns/<id>/CAMPAIGN.md`
 3. `cartridges/<id>/CARTRIDGE.md`
-4. `campaigns/<id>/HOT_PACK.md` (includes SPINE summary)
-5. `campaigns/<id>/STATE_PANEL.md`
+4. `campaigns/<id>/HOT_PACK.json` (includes SPINE summary)
+5. `campaigns/<id>/STATE_PANEL.json`
 6. `campaigns/<id>/sessions/CURRENT_SESSION.md` → `session_*.md` tail Decision
-7. `campaigns/<id>/MAINLINE_PANEL.md` (mainline status only)
+7. `campaigns/<id>/MAINLINE_PANEL.json` (mainline status only)
 8. `campaigns/<id>/index.md` (only “main thread / next goal”)
 9. `campaigns/<id>/.DM_BLUEPRINT.md` (SPINE summary only)
 
@@ -26,7 +26,7 @@
 ---
 
 ## 2) Load & Style (Anti‑Hallucination)
-- **No new facts on load**: only restate `*_snapshot.md` + `HOT_PACK.md`
+- **No new facts on load**: only restate `*_snapshot.md` + `HOT_PACK.json`
 - Must label as “Load Summary”, do not advance plot
 - Narrative format must follow the **Fixed Narrative Style** in `engine/KERNEL_PROMPT.md`
 
@@ -51,3 +51,11 @@
 ## 5) Authority References
 - Kernel: `engine/KERNEL_PROMPT.md`
 - Retrieval: `engine/RAG_ENGINE.md`
+
+---
+
+## 6) Function Calling (Mandatory)
+
+- Use `skills_repo/rpg-dm-function-calling-local/references/tools.json` tool definitions; **output JSON tool_calls only**, no Markdown calls.
+- All writes must go through `write_patch` / `append_session` / `update_*` tools.
+- Load/resume must go through `load_snapshot` + `read_hot_pack` tools.

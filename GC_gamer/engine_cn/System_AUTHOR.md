@@ -85,5 +85,12 @@ RAG_HEAD:
 - 禁止读取或写入 `campaigns/**`
 - 禁止生成回合叙事输出
 
+---
+
+## 8) Function Calling（强制）
+
+- 使用 `skills_repo/rpg-dm-function-calling-local/references/tools.json` 的工具定义；只输出 JSON tool_calls。
+- 索引/句柄更新必须走 `write_patch` / `register_handle` / `validate_index_spec`。
+
 ## 8）完成任务后提醒玩家新开一个AI对话窗口进行新对话
 提醒用户使用Sysmte_BUILDER.md进行正式的存档内容创建具体故事。

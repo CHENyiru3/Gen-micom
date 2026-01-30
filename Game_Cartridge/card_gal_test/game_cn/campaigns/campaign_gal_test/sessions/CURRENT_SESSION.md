@@ -1,1 +1,0 @@
-sessions/session_D1_arrival.md

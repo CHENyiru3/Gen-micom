@@ -32,8 +32,8 @@
 - `ACTIVE.md`
 - `campaigns/<id>/CAMPAIGN.md`
 - `cartridges/<id>/CARTRIDGE.md`
-- `campaigns/<id>/HOT_PACK.md`
-- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/HOT_PACK.json`
+- `campaigns/<id>/STATE_PANEL.json`
 - `campaigns/<id>/sessions/CURRENT_SESSION.md` → 对应 `session_*.md` 末尾 Decision
 - `campaigns/<id>/index.md`（只读“主线指针/下一步”区块）
 - **可选**：`campaigns/<id>/.DM_BLUEPRINT.md`（仅“SPINE摘要区”，不吞全文）

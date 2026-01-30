@@ -1,0 +1,5 @@
+{
+  "clues": [
+    {"id": "c000", "handle": "@clue_template", "source": "bootstrap", "summary": "placeholder clue", "status": "pending"}
+  ]
+}

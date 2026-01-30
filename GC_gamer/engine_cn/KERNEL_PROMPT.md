@@ -13,10 +13,10 @@
 - `cartridges/<cartridge_id>/CARTRIDGE.md`：routes / aliases / invariants
 
 ### 0.1 HOT（每回合最多读这些的摘要）
-- `campaigns/<id>/HOT_PACK.md`：最新热启动包（优先读取；只含 `CONTEXT_PACK_NEXT`）
+- `campaigns/<id>/HOT_PACK.json`：最新热启动包（优先读取；只含 `CONTEXT_PACK_NEXT`）
 - `campaigns/<id>/PLAYER_PROFILE.md`：玩家偏好摘要（≤8 行）
-- `campaigns/<id>/OBJECT_INDEX.md`：活跃对象索引（指针 + 1 行摘要）
-- `campaigns/<id>/STATE_PANEL.md`：常驻状态面板（只读“变化相关段落”）
+- `campaigns/<id>/OBJECT_INDEX.json`：活跃对象索引（指针 + 1 行摘要）
+- `campaigns/<id>/STATE_PANEL.json`：常驻状态面板（只读“变化相关段落”）
 - `campaigns/<id>/sessions/CURRENT_SESSION.md`：当前活跃 session 文件指针
 - `campaigns/<id>/sessions/SESSION_INDEX.md` + 最新 `campaigns/<id>/sessions/session_*.md` 末尾 Decision 摘要
 - `campaigns/<id>/characters/PCs/pc_current.md`、`campaigns/<id>/characters/PCs/pet_current.md`
@@ -54,6 +54,8 @@
 - `<切换战役 campaigns/campaign_0001>`：切换到已有战役
 - `<热启动>` / `<继续>`：按 `engine/HOT_START.md` 恢复并继续
 
+> **执行方式**：上述控制指令的落盘/切换必须输出 **JSON tool_calls**（见 `skills_repo/rpg-dm-function-calling-local/references/tools.json`），由本地工具执行。
+
 ### 1.3 引用与别名
 - 对象引用优先用 `@句柄`；若自然语言歧义，给 3 个候选并要求选择。
 
@@ -64,7 +66,7 @@
 当信息冲突时，优先级固定为：
 
 1. `campaigns/<id>/sessions/`（Event：会话决策历史）
-2. `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md`（State：当前状态）
+2. `campaigns/<id>/STATE_PANEL.json` / `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md`（State：当前状态）
 3. `cartridges/<id>/characters/` / `cartridges/<id>/quests/` / `cartridges/<id>/locations/`（对象档案）
 4. `cartridges/<id>/lore/CANON/*`、`cartridges/<id>/lore/MIST/*`（Canon / Mist）
 5. `campaigns/<id>/Writing/`（Writing：派生叙事，永不产出设定）
@@ -81,16 +83,16 @@
 
 ### 3.1 C0 BOOTSTRAP（快速恢复）
 目标：最少读取恢复上下文（不读长文）。
-- 从 `campaigns/<id>/STATE_PANEL.md` 抓取：时间/地点/指标/时钟/活跃任务/关键 NPC
+- 从 `campaigns/<id>/STATE_PANEL.json` 抓取：时间/地点/指标/时钟/活跃任务/关键 NPC
 - 从最新 `campaigns/<id>/sessions/session_*.md` 末尾抓取：最近一次 Decision 与未结算风险/时钟
 - 从 `campaigns/<id>/characters/PCs/pc_current.md` 抓取：玩家姓名与核心画像
-- 若 `HOT_PACK.md` 顶部存在 `SPINE`，仅抓取 4–6 行主线摘要
+- 若 `HOT_PACK.json` 顶部存在 `SPINE`，仅抓取 4–6 行主线摘要
 
 产物：`boot_state`（≤12 行摘要）
 
 ### 3.1.1 用户指南提示（仅一次）
-- 在每次**新建/读取战役**后，若 `HOT_PACK.md` 中 `guide_shown` 为空或为 `0`，需在对话输出**一次**简短用户指南（命令头与热启动提示）。
-- 输出后将 `guide_shown=1` 写回 `HOT_PACK.md`（通过 ARCHIVE_DELTA patch）。
+- 在每次**新建/读取战役**后，若 `HOT_PACK.json` 中 `guide_shown` 为空或为 `0`，需在对话输出**一次**简短用户指南（命令头与热启动提示）。
+- 输出后将 `guide_shown=1` 写回 `HOT_PACK.json`（通过 ARCHIVE_DELTA patch）。
 
 ### 3.1.2 递归压缩规则（执行阶段提示）
 - 每回合结束：只压缩“上一轮之前历史”，保留“上一轮+本轮”完整细节到快照。
@@ -150,14 +152,14 @@ HUD 必须短（≤10 行），输出本回合可交互对象短码：
 短码是 UI，只在当前回合有效；系统内部应绑定到稳定 ID（`loc_*`/`npc_*`/`quest_*`/`item_*`/`faction_*`）。
 
 ### 3.8 C7 ARCHIVE_DELTA（增量存档）
-必须输出可机器解析的增量块（HTML 注释，玩家不可见）：
+必须输出可机器解析的增量块（**通过工具写入**，不在聊天中渲染）：
 - 只能 append / patch：**不准整文件重写**
 - **任何有效行动都必须写入**：所有 `ACT/LOOK/ASK/FIGHT/CAST/MANAGE` 都必须 append 到 `sessions/session_*.md`（即使“无发现/无推进”也要记录）
-- 至少更新：最新 `campaigns/<id>/sessions/session_*.md`（append），并按需 patch `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/index.md` / 相关 quest/NPC/location 文件
-- **确保持久热启动**：每回合必须 patch `campaigns/<id>/HOT_PACK.md`，并在新建/切换会话时 patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
-- **减少扫描成本**：本回合涉及到的活跃 NPC/任务/地点/地图变动时，同步 patch `campaigns/<id>/OBJECT_INDEX.md`
+- 至少更新：最新 `campaigns/<id>/sessions/session_*.md`（append），并按需 patch `campaigns/<id>/STATE_PANEL.json` / `campaigns/<id>/index.md` / 相关 quest/NPC/location 文件
+- **确保持久热启动**：每回合必须 patch `campaigns/<id>/HOT_PACK.json`，并在新建/切换会话时 patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
+- **减少扫描成本**：本回合涉及到的活跃 NPC/任务/地点/地图变动时，同步 patch `campaigns/<id>/OBJECT_INDEX.json`
 
-格式（见本文件 3.8）：
+格式（见本文件 3.8），由 JSON tool_calls 写入到文件：
 ```md
 <!-- ARCHIVE_DELTA
 files:
@@ -183,7 +185,7 @@ files:
 
 ## 5) 机器可读规范（稳定）
 
-- `STATE_PANEL.md` 字段规范：`engine/mechanics/STATE_PANEL_SPEC.md`
+- `STATE_PANEL.json` 字段规范：`engine/mechanics/skills_repo/rpg-dm-function-calling-local/references/panels.json`
 - `CONTEXT_PACK_NEXT` 规范：`engine/mechanics/CONTEXT_PACK.md`
 - `ARCHIVE_DELTA` 规范：本文件 3.8（append/patch only）
  - `ARCHIVE_DELTA` 稳定文档：`ARCHIVE_DELTA.md`

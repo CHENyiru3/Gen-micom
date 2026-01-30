@@ -1,0 +1,13 @@
+{
+  "spine": ["Mainline 1 (placeholder)", "Mainline 2 (placeholder)"],
+  "key_npcs": [],
+  "theme": "",
+  "mainline": "",
+  "context": {
+    "t": "",
+    "loc": "",
+    "pc": "",
+    "guide_shown": 0,
+    "flags": ""
+  }
+}

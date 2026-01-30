@@ -16,9 +16,9 @@ ROOT_FILES_TO_LINK = {
     "quests": "quests",
     "characters": "characters",
     "Writing": "Writing",
-    "STATE_PANEL.md": "STATE_PANEL.md",
-    "HOT_PACK.md": "HOT_PACK.md",
-    "OBJECT_INDEX.md": "OBJECT_INDEX.md",
+    "STATE_PANEL.json": "STATE_PANEL.json",
+    "HOT_PACK.json": "HOT_PACK.json",
+    "OBJECT_INDEX.json": "OBJECT_INDEX.json",
     "PLAYER_PROFILE.md": "PLAYER_PROFILE.md",
     "GOVERNANCE_PANEL.md": "GOVERNANCE_PANEL.md",
     ".DM_SECRETS.md": ".DM_SECRETS.md",
@@ -84,7 +84,7 @@ def validate_campaign_layout(campaign_dir: Path) -> None:
         campaign_dir / "quests",
         campaign_dir / "characters",
         campaign_dir / "Writing",
-        campaign_dir / "STATE_PANEL.md",
+        campaign_dir / "STATE_PANEL.json",
         campaign_dir / "sessions" / "CURRENT_SESSION.md",
     ]
     missing = [str(p) for p in required if not p.exists()]
@@ -130,14 +130,14 @@ def _replace_state_date_row(text: str, date_value: str) -> str:
 def _replace_state_location(text: str, loc: str) -> str:
     pattern = re.compile(r"^[*][*]当前[*][*]:\s*.*$", re.MULTILINE)
     if not pattern.search(text):
-        raise RuntimeError("could not find current location line in STATE_PANEL.md")
+        raise RuntimeError("could not find current location line in STATE_PANEL.json")
     return pattern.sub(f"**当前**: {loc}", text, count=1)
 
 
 def _replace_hot_pack(text: str, *, t: str, loc: str, pc: str, flags: str) -> str:
     block = re.search(r"<!--\s*CONTEXT_PACK_NEXT(?P<body>[\s\S]*?)-->", text)
     if not block:
-        raise RuntimeError("could not find CONTEXT_PACK_NEXT block in HOT_PACK.md")
+        raise RuntimeError("could not find CONTEXT_PACK_NEXT block in HOT_PACK.json")
     body = block.group("body")
     for k, v in [("t", t), ("loc", loc), ("pc", pc), ("flags", flags)]:
         body = re.compile(rf"^\s*{re.escape(k)}=.*$", re.MULTILINE).sub(
@@ -375,19 +375,22 @@ def cmd_init(args: argparse.Namespace) -> None:
     _require_file(current_session_ptr)
     current_session_ptr.write_text(session_rel + "\n", encoding="utf-8")
 
-    state_path = campaign_dir / "STATE_PANEL.md"
+    state_path = campaign_dir / "STATE_PANEL.json"
     _require_file(state_path)
-    state_text = state_path.read_text(encoding="utf-8")
-    state_text = _replace_state_date_row(state_text, today)
-    state_text = _replace_state_location(state_text, start_loc)
-    state_path.write_text(state_text, encoding="utf-8")
+    state_obj = json.loads(state_path.read_text(encoding="utf-8"))
+    state_obj["time"] = today
+    state_obj["location"] = start_loc
+    state_path.write_text(json.dumps(state_obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    hot_path = campaign_dir / "HOT_PACK.md"
+    hot_path = campaign_dir / "HOT_PACK.json"
     _require_file(hot_path)
-    hot_text = hot_path.read_text(encoding="utf-8")
-    flags_line = f"STYLE={pref.get('STYLE','-')}"
-    hot_text = _replace_hot_pack(hot_text, t=today, loc=start_loc, pc=pc_name, flags=flags_line)
-    hot_path.write_text(hot_text, encoding="utf-8")
+    hot_obj = json.loads(hot_path.read_text(encoding="utf-8"))
+    hot_obj.setdefault("context", {})
+    hot_obj["context"]["t"] = today
+    hot_obj["context"]["loc"] = start_loc
+    hot_obj["context"]["pc"] = pc_name
+    hot_obj["context"]["flags"] = f"STYLE={pref.get('STYLE','-')}"
+    hot_path.write_text(json.dumps(hot_obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print("OK: init complete")
     print(f"- campaign: {current_rel}")

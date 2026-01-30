@@ -41,3 +41,14 @@ related: [...]
 - Related Quests: quest_...
 - Related NPCs: npc_...
 ```
+
+## JSON Panels (Runtime)
+
+Use JSON for runtime panels (not MD):
+- STATE_PANEL.json
+- HOT_PACK.json
+- MAINLINE_PANEL.json
+- OBJECT_INDEX.json
+- clues/CLUE_LOG.json
+
+Schema: skills_repo/rpg-dm-function-calling-local/references/panels.json

@@ -9,9 +9,9 @@
 
 1. Does `campaigns/<id>/sessions/CURRENT_SESSION.md` point to the session file written this time?
 2. Does the current session file end have the latest `Decision` (append)?
-3. Is `campaigns/<id>/HOT_PACK.md`'s `CONTEXT_PACK_NEXT` consistent with the latest Decision (time/location/indicators/hooks)?
-4. Has `campaigns/<id>/STATE_PANEL.md` been patched (time/indicators/location/quest/NPC/clock should have at least corresponding changes or remain unchanged)?
-5. Has `campaigns/<id>/OBJECT_INDEX.md` been patched (active object pointer and 1-line summary)?
+3. Is `campaigns/<id>/HOT_PACK.json`'s `CONTEXT_PACK_NEXT` consistent with the latest Decision (time/location/indicators/hooks)?
+4. Has `campaigns/<id>/STATE_PANEL.json` been patched (time/indicators/location/quest/NPC/clock should have at least corresponding changes or remain unchanged)?
+5. Has `campaigns/<id>/OBJECT_INDEX.json` been patched (active object pointer and 1-line summary)?
 6. If macro world changes are involved: Has `campaigns/<id>/WORLD_STATE.md` been patched (only index-level updates)?
 
 ### Optional: Experience Enhancement (Recommended)

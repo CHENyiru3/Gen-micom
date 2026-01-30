@@ -7,7 +7,7 @@
 ## Input
 - Player input (must contain command header)
 - cartridges/<id>/CARTRIDGE.md routes
-- campaigns/<id>/HOT_PACK.md
+- campaigns/<id>/HOT_PACK.json
 - campaigns/<id>/index.md (only top snapshot)
 
 ## Output

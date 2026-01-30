@@ -60,7 +60,7 @@
 ```
 
 1. 检查 `campaigns/<id>/sessions/session_*.md`（Event）
-2. 检查 `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md` / `campaigns/<id>/STATE_PANEL.md`（State）
+2. 检查 `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md` / `campaigns/<id>/STATE_PANEL.json`（State）
 3. 检查 `cartridges/<id>/lore/CANON/*`（Canon）
 4. Writing 只用于"一致性检查"，不作为设定来源
 

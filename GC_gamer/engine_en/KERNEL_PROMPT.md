@@ -13,10 +13,10 @@
 - `cartridges/<cartridge_id>/CARTRIDGE.md`: Routes / aliases / invariants
 
 ### 0.1 HOT (Read at most these summaries per turn)
-- `campaigns/<id>/HOT_PACK.md`: Latest hot start package (priority read; only contains `CONTEXT_PACK_NEXT`)
+- `campaigns/<id>/HOT_PACK.json`: Latest hot start package (priority read; only contains `CONTEXT_PACK_NEXT`)
 - `campaigns/<id>/PLAYER_PROFILE.md`: Player preference summary (≤8 lines)
-- `campaigns/<id>/OBJECT_INDEX.md`: Active object index (pointer + 1-line summary)
-- `campaigns/<id>/STATE_PANEL.md`: Persistent state panel (only read "change-related paragraphs")
+- `campaigns/<id>/OBJECT_INDEX.json`: Active object index (pointer + 1-line summary)
+- `campaigns/<id>/STATE_PANEL.json`: Persistent state panel (only read "change-related paragraphs")
 - `campaigns/<id>/sessions/CURRENT_SESSION.md`: Current active session file pointer
 - `campaigns/<id>/sessions/SESSION_INDEX.md` + Latest `campaigns/<id>/sessions/session_*.md` ending Decision summary
 - `campaigns/<id>/characters/PCs/pc_current.md`, `campaigns/<id>/characters/PCs/pet_current.md`
@@ -55,6 +55,8 @@ See `engine/CLI_SPEC.md` for compatible aliases.
 - `<switch campaign campaigns/campaign_0001>`: Switch to existing campaign
 - `<continue>` / `<hot start>`: Follow `engine/HOT_START.md` to resume and continue
 
+> **Execution**: control instructions must emit **JSON tool_calls** (see `skills_repo/rpg-dm-function-calling-local/references/tools.json`) and be executed by local tools.
+
 ### 1.3 References and Aliases
 - Object references preferably use `@handle`; if natural language ambiguous, give 3 candidates and require selection.
 
@@ -65,7 +67,7 @@ See `engine/CLI_SPEC.md` for compatible aliases.
 When information conflicts, priority is fixed:
 
 1. `campaigns/<id>/sessions/` (Event: Session decision history)
-2. `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md` (State: Current state)
+2. `campaigns/<id>/STATE_PANEL.json` / `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md` (State: Current state)
 3. `cartridges/<id>/characters/` / `cartridges/<id>/quests/` / `cartridges/<id>/locations/` (Object archives)
 4. `cartridges/<id>/lore/CANON/*`, `cartridges/<id>/lore/MIST/*` (Canon / Mist)
 5. `campaigns/<id>/Writing/` (Writing: Derived fiction, never produces canon)
@@ -82,16 +84,16 @@ Conflicts must be written in this turn's `ARCHIVE_DELTA` with "correction note".
 
 ### 3.1 C0 BOOTSTRAP (Quick Recovery)
 Goal: Minimum read to recover context (not read long text).
-- From `campaigns/<id>/STATE_PANEL.md` grab: Time/location/indicators/clocks/active quest/key NPC
+- From `campaigns/<id>/STATE_PANEL.json` grab: Time/location/indicators/clocks/active quest/key NPC
 - From latest `campaigns/<id>/sessions/session_*.md` ending grab: Most recent Decision and unresolved risks/clocks
 - From `campaigns/<id>/characters/PCs/pc_current.md` grab: player name and core profile
-- If `HOT_PACK.md` starts with `SPINE`, grab only the 4–6 line mainline summary
+- If `HOT_PACK.json` starts with `SPINE`, grab only the 4–6 line mainline summary
 
 Product: `boot_state` (≤12 line summary)
 
 ### 3.1.1 User Guide Prompt (Once Only)
-- After each **new/load campaign**, if `guide_shown` in `HOT_PACK.md` is empty or `0`, output a **one‑time** short user guide (command heads + hot start hint).
-- After output, write back `guide_shown=1` to `HOT_PACK.md` via ARCHIVE_DELTA patch.
+- After each **new/load campaign**, if `guide_shown` in `HOT_PACK.json` is empty or `0`, output a **one‑time** short user guide (command heads + hot start hint).
+- After output, write back `guide_shown=1` to `HOT_PACK.json` via ARCHIVE_DELTA patch.
 
 ### 3.1.2 Recursive Compression Rule (Execution Reminder)
 - End of each turn: compress history **before last turn**, keep **last + current turn** uncompressed in snapshot.
@@ -150,14 +152,14 @@ HUD must be short (≤10 lines), output this turn's interactable object short co
 Short codes are UI, only valid for current turn; internally should bind to stable IDs (`loc_*`/`npc_*`/`quest_*`/`item_*`/`faction_*`).
 
 ### 3.8 C7 ARCHIVE_DELTA (Incremental Archive)
-Must output machine-parsable delta block (HTML comment, invisible to players):
+Must output machine-parsable delta block (**write via tools**, not rendered in chat):
 - Only append / patch: **never rewrite entire files**
 - **Write on any valid action**: all `ACT/LOOK/ASK/FIGHT/CAST/MANAGE` must append to `sessions/session_*.md` (even if “no discovery/no progress”)
-- At minimum update: Latest `campaigns/<id>/sessions/session_*.md` (append), and optionally patch `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/index.md` / relevant quest/NPC/location files
-- **Ensure persistent hot start**: Each turn must patch `campaigns/<id>/HOT_PACK.md`, and when creating/switching sessions patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
-- **Reduce scanning cost**: When active NPC/quest/location/map changes this turn, synchronously patch `campaigns/<id>/OBJECT_INDEX.md`
+- At minimum update: Latest `campaigns/<id>/sessions/session_*.md` (append), and optionally patch `campaigns/<id>/STATE_PANEL.json` / `campaigns/<id>/index.md` / relevant quest/NPC/location files
+- **Ensure persistent hot start**: Each turn must patch `campaigns/<id>/HOT_PACK.json`, and when creating/switching sessions patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
+- **Reduce scanning cost**: When active NPC/quest/location/map changes this turn, synchronously patch `campaigns/<id>/OBJECT_INDEX.json`
 
-Format (see section 3.8 of this file):
+Format (see section 3.8 of this file), written via JSON tool_calls:
 ```md
 <!-- ARCHIVE_DELTA
 files:
@@ -183,7 +185,7 @@ Each turn fixed order:
 
 ## 5) Machine-Readable Specifications (Stable)
 
-- `STATE_PANEL.md` field specification: `engine/mechanics/STATE_PANEL_SPEC.md`
+- `STATE_PANEL.json` field specification: `engine/mechanics/skills_repo/rpg-dm-function-calling-local/references/panels.json`
 - `CONTEXT_PACK_NEXT` specification: `engine/mechanics/CONTEXT_PACK.md`
 - `ARCHIVE_DELTA` specification: Section 3.8 of this file (append/patch only)
 - `ARCHIVE_DELTA` stable document: `ARCHIVE_DELTA.md`

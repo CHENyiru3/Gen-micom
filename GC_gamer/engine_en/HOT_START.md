@@ -7,8 +7,8 @@
 ## 0) Single Source of Truth: File Responsibilities (Avoid Duplication)
 
 - `campaigns/<id>/sessions/`: **Event source of truth** (Decision append; never rewrite history)
-- `campaigns/<id>/STATE_PANEL.md`: **Player-side persistent panel** (short, patchable, easy to view)
-- `campaigns/<id>/HOT_PACK.md`: **Next turn hot start package** (≤25 lines, machine-readable; priority read)
+- `campaigns/<id>/STATE_PANEL.json`: **Player-side persistent panel** (short, patchable, easy to view)
+- `campaigns/<id>/HOT_PACK.json`: **Next turn hot start package** (≤25 lines, machine-readable; priority read)
 - `campaigns/<id>/index.md`: **Navigation index** (only pointers and very short summary, no long lore)
 - `campaigns/<id>/WORLD_STATE.md`: **World state/backend indicators and complete clue index** (read when needed)
 - `cartridges/<id>/lore/INDEX.md`: **Lore library entry** (use when answering lore questions)
@@ -21,12 +21,12 @@
 
 ## 1) Hot Start Reading Order (Mandatory)
 
-1. `campaigns/<id>/HOT_PACK.md`: Read `<!-- CONTEXT_PACK_NEXT ... -->` (if exists)
+1. `campaigns/<id>/HOT_PACK.json`: Read `<!-- CONTEXT_PACK_NEXT ... -->` (if exists)
 2. `campaigns/<id>/PLAYER_PROFILE.md`: Only read "preference summary" (≤8 lines)
-3. `campaigns/<id>/OBJECT_INDEX.md`: Only read active pointer (1-line summary for NPC/Quest/Location/Map)
+3. `campaigns/<id>/OBJECT_INDEX.json`: Only read active pointer (1-line summary for NPC/Quest/Location/Map)
 4. `campaigns/<id>/sessions/CURRENT_SESSION.md`: Locate current active session file path
 5. Corresponding `campaigns/<id>/sessions/session_*.md`: Only read the last 1-3 Decisions (not the whole thing)
-6. `campaigns/<id>/STATE_PANEL.md`: Only read time/indicators/quest/NPC/clocks/location (as needed)
+6. `campaigns/<id>/STATE_PANEL.json`: Only read time/indicators/quest/NPC/clocks/location (as needed)
 7. `campaigns/<id>/index.md`: Only read "next session goal/pointers" (not long text)
 
 If "insufficient information": then as needed read `campaigns/<id>/quests/QUEST_LOG.md` or `cartridges/<id>/locations/LOCATION_INDEX.md`, finally read `campaigns/<id>/WORLD_STATE.md`.
@@ -36,7 +36,7 @@ If "insufficient information": then as needed read `campaigns/<id>/quests/QUEST_
 ## 2) Startup Self-Check (Prevent Drift)
 
 After startup, immediately check:
-- Are the indicators/location in `campaigns/<id>/STATE_PANEL.md` consistent with recent Decisions?
+- Are the indicators/location in `campaigns/<id>/STATE_PANEL.json` consistent with recent Decisions?
 - Does `campaigns/<id>/sessions/CURRENT_SESSION.md` point to a file that exists and is the latest session?
 - If conflict: Use `campaigns/<id>/sessions/` as standard, and in the next `ARCHIVE_DELTA` write "correction note"
 
@@ -54,5 +54,5 @@ Handling: Prompt user to send `<initialize>`, and complete disk persistence per 
 
 At the end of each turn, via `ARCHIVE_DELTA`, update at least:
 - `campaigns/<id>/sessions/<current>.md`: append Decision
-- `campaigns/<id>/STATE_PANEL.md`: patch (only changed chapters)
-- `campaigns/<id>/HOT_PACK.md`: patch (write latest `CONTEXT_PACK_NEXT`)
+- `campaigns/<id>/STATE_PANEL.json`: patch (only changed chapters)
+- `campaigns/<id>/HOT_PACK.json`: patch (write latest `CONTEXT_PACK_NEXT`)

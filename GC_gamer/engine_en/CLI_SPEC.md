@@ -39,9 +39,9 @@ One input = One `[tag]{content}` or `[tag]"content"` combination:
 
 ### Special Control Instructions (Not in Story)
 
-- **`<初始化>` / `<initialize>`**: Start new campaign initialization. Process: first collect preferences/PC/opening hooks via conversation → confirm, then auto-execute `python3 scripts/campaign_manager.py init ...` for persistence. **Supports `--from answers.json` for JSON format answers** (JSON keys mapping see INIT_PROTOCOL.md §1.1).
-- `<新战役 campaign_0002>` / `<new campaign campaign_0002>`: Create and switch to new campaign (AI executes script and symlink switch)
-- `<切换战役 campaigns/campaign_0001>` / `<switch campaign campaigns/campaign_0001>`: Switch to existing campaign (AI executes symlink switch)
+- **`<初始化>` / `<initialize>`**: Start new campaign initialization. Process: collect preferences/PC/opening hooks → confirm → output **JSON tool_calls** to run `init_campaign` (JSON keys mapping see INIT_PROTOCOL.md §1.1).
+- `<新战役 campaign_0002>` / `<new campaign campaign_0002>`: Create/switch campaign (AI outputs JSON tool_calls for `copy_template` + `bind_campaign` + `set_active`)
+- `<切换战役 campaigns/campaign_0001>` / `<switch campaign campaigns/campaign_0001>`: Switch to existing campaign (AI outputs JSON tool_calls for `set_active`)
 - `<热启动>` / `<continue>` / `<hot start>`: Resume and continue per `HOT_START.md`
 
 **Dual-Layer System**:

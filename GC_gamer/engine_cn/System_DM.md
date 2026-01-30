@@ -14,10 +14,10 @@
 1. `ACTIVE.md`
 2. `campaigns/<id>/CAMPAIGN.md`
 3. `cartridges/<id>/CARTRIDGE.md`
-4. `campaigns/<id>/HOT_PACK.md`（含 SPINE 摘要）
-5. `campaigns/<id>/STATE_PANEL.md`
+4. `campaigns/<id>/HOT_PACK.json`（含 SPINE 摘要）
+5. `campaigns/<id>/STATE_PANEL.json`
 6. `campaigns/<id>/sessions/CURRENT_SESSION.md` → `session_*.md` 末尾 Decision
-7. `campaigns/<id>/MAINLINE_PANEL.md`（只读主线状态）
+7. `campaigns/<id>/MAINLINE_PANEL.json`（只读主线状态）
 8. `campaigns/<id>/index.md`（只读“主线指针/下一步”）
 9. `campaigns/<id>/.DM_BLUEPRINT.md`（只读 SPINE 摘要区）
 
@@ -26,7 +26,7 @@
 ---
 
 ## 2) 读档与风格（防幻觉）
-- **读档时禁止新增事实**：只重述 `*_快照.md` 与 `HOT_PACK.md`
+- **读档时禁止新增事实**：只重述 `*_快照.md` 与 `HOT_PACK.json`
 - 必须标记为“读档摘要”，不推进剧情
 - 叙事格式必须遵循 `engine/KERNEL_PROMPT.md` 的“固定叙事样式”
 
@@ -51,3 +51,11 @@
 ## 5) 权威规则入口
 - 运行内核：`engine/KERNEL_PROMPT.md`
 - 检索规则：`engine/RAG_ENGINE.md`
+
+---
+
+## 6) Function Calling（强制）
+
+- 使用 `skills_repo/rpg-dm-function-calling-local/references/tools.json` 的工具定义，**只输出 JSON tool_calls**，不输出 Markdown 调用。
+- 所有写入必须通过 `write_patch` / `append_session` / `update_*` 工具完成。
+- 读档/恢复必须通过 `load_snapshot` + `read_hot_pack` 工具完成。

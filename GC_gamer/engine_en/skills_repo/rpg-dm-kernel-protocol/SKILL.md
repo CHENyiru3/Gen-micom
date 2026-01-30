@@ -5,14 +5,14 @@ description: Run a filesystem-backed long-running RPG/DM session using HOT/WARM/
 
 # RPG DM Kernel Protocol (Filesystem-Backed)
 
-Use this skill when the user is playing a text RPG / asking you to act as DM, and the project stores memory/state in markdown files (e.g. `campaigns/<id>/index.md`, `campaigns/<id>/STATE_PANEL.md`, `campaigns/<id>/sessions/`, `cartridges/<id>/lore/`, `engine/mechanics/`).
+Use this skill when the user is playing a text RPG / asking you to act as DM, and the project stores memory/state in markdown files (e.g. `campaigns/<id>/index.md`, `campaigns/<id>/STATE_PANEL.json`, `campaigns/<id>/sessions/`, `cartridges/<id>/lore/`, `engine/mechanics/`).
 
 ## Hard rules (stable API)
 
 - **Kernel ≠ content**: never embed world specifics into the kernel. Load them from content packs (files).
 - **Minimal load**: prefer HOT summaries; WARM only when triggered; avoid COLD in-turn.
 - **Never decide for the PC**: narrate, adjudicate, offer options.
-- **Conflict priority**: `campaigns/<id>/sessions/` > `campaigns/<id>/STATE_PANEL.md`/`campaigns/<id>/index.md`/`campaigns/<id>/WORLD_STATE.md` > object files > `cartridges/<id>/lore/*` > `campaigns/<id>/Writing/*`.
+- **Conflict priority**: `campaigns/<id>/sessions/` > `campaigns/<id>/STATE_PANEL.json`/`campaigns/<id>/index.md`/`campaigns/<id>/WORLD_STATE.md` > object files > `cartridges/<id>/lore/*` > `campaigns/<id>/Writing/*`.
 - **Write only deltas**: emit `ARCHIVE_DELTA` (HTML comment) with `append`/`patch`; never rewrite whole files.
 
 ## Turn pipeline (single-agent)
@@ -33,5 +33,5 @@ Short codes are **UI-only** and **expire each turn**; bind them internally to st
 
 - Turn protocol: see repo `KERNEL_PROMPT.md`
 - Context pack schema: see repo `engine/mechanics/CONTEXT_PACK.md`
-- State panel schema: see repo `engine/mechanics/STATE_PANEL_SPEC.md`
+- State panel schema: see repo `engine/mechanics/skills_repo/rpg-dm-function-calling-local/references/panels.json`
 - Retrieval rules: see repo `engine/mechanics/RAG_RULES.md`

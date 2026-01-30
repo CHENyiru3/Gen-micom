@@ -5,6 +5,7 @@
 > **角色分工**：见 `engine/ROLE_SYSTEMS.md`（AUTHOR/BUILDER/DM 的读取范围）。  
 > **角色入口**：`engine/System_AUTHOR.md` / `engine/System_BUILDER.md` / `engine/System_DM.md` / `engine/System_SAVE_READ.md`  
 > **速记入口**：`engine/ROLE_ENTRY.md`
+> **工具定义**：`skills_repo/rpg-dm-function-calling-local/references/tools.json`（功能调用，仅 JSON）
 
 ---
 
@@ -16,12 +17,12 @@
 - `ACTIVE.md`
 - `campaigns/<id>/CAMPAIGN.md`
 - `cartridges/<id>/CARTRIDGE.md`
-- `campaigns/<id>/HOT_PACK.md`
+- `campaigns/<id>/HOT_PACK.json`
 - `campaigns/<id>/PLAYER_PROFILE.md`
 - `campaigns/<id>/characters/PCs/pc_current.md`
-- `campaigns/<id>/OBJECT_INDEX.md`
+- `campaigns/<id>/OBJECT_INDEX.json`
 - `campaigns/<id>/sessions/CURRENT_SESSION.md` → 对应 `campaigns/<id>/sessions/session_*.md` 末尾 Decision
-- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/STATE_PANEL.json`
 - `campaigns/<id>/index.md`（只读“下一步目标/指针”）
 
 初始化入口：`engine/INIT_PROTOCOL.md`
@@ -36,12 +37,12 @@
 
 ## 0.2 用户指南提示（仅一次）
 
-- 每次新建/读取战役后：若 `HOT_PACK.md` 中 `guide_shown` 为空或为 `0`，必须输出**一次**简短用户指南。
-- 输出后将 `guide_shown=1` 写回 `HOT_PACK.md`（通过 ARCHIVE_DELTA patch）。
+- 每次新建/读取战役后：若 `HOT_PACK.json` 中 `guide_shown` 为空或为 `0`，必须输出**一次**简短用户指南。
+- 输出后将 `guide_shown=1` 写回 `HOT_PACK.json`（通过 ARCHIVE_DELTA patch）。
 
 ## 0.3 读档一致性规则（防幻觉）
 
-- **读档/继续阶段禁止新增事实**：恢复时只能重述 `*_快照.md` 与 `HOT_PACK.md` 已有信息。
+- **读档/继续阶段禁止新增事实**：恢复时只能重述 `*_快照.md` 与 `HOT_PACK.json` 已有信息。
 - **不得生成新线索/新NPC/新地点/新文本**；若缺信息，提示“未记录/需要玩家行动触发”。
 - **恢复输出必须标记为“读档摘要”**，不作为新剧情推进。
 
@@ -69,7 +70,7 @@
 ## 1) 世界实例：内容包入口（会变）
 
 ### 1.1 状态（State）
-- `campaigns/<id>/STATE_PANEL.md`（玩家可见常驻面板）
+- `campaigns/<id>/STATE_PANEL.json`（玩家可见常驻面板）
 - `campaigns/<id>/index.md`（导航索引/短摘要）
 - `campaigns/<id>/WORLD_STATE.md`（后台世界状态：指标、时钟、完整线索索引）
 - `campaigns/<id>/GOVERNANCE_PANEL.md`（统治面板：领地/追随者/资产；可选）
@@ -138,7 +139,7 @@
 3. 在 `SESSION_INDEX.md` 中只指向最新 **快照** 文件
 
 **对话引用约束**：
-- 对话中仅引用 `*_快照.md` 与 `HOT_PACK.md`
+- 对话中仅引用 `*_快照.md` 与 `HOT_PACK.json`
 - `*_压缩.md` 仅在用户要求回溯时引用
 
 ### 回合结束清单
@@ -146,8 +147,8 @@
 **每轮对话结束时必须按顺序执行以下所有步骤：**
 
 1. [ ] 写入 session MD（记录行动与结果）
-2. [ ] 更新 STATE_PANEL.md（指标、NPC、线索、时钟）
-3. [ ] 更新 HOT_PACK.md（上下文包）
+2. [ ] 更新 STATE_PANEL.json（指标、NPC、线索、时钟）
+3. [ ] 更新 HOT_PACK.json（上下文包）
 4. [ ] 在对话中输出场景摘要 + 可选行动
 5. [ ] 显示 HUD 短码菜单（如有交互对象）
 6. [ ] **递归压缩“上一轮之前历史”（*_压缩.md）**（强制执行）

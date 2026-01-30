@@ -21,15 +21,17 @@
 
 ## 1) 自动化方式（推荐）
 
-使用脚本：
+使用 JSON tool_calls（推荐）：
 
-```bash
-python3 engine/scripts/campaign_manager.py new --id campaign_0002
-python3 engine/scripts/campaign_manager.py switch --path campaigns/campaign_0001
+```json
+{
+  "tool_calls": [
+    {"name": "copy_template", "arguments": {"src": "Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template", "dst": "Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>"}},
+    {"name": "bind_campaign", "arguments": {"campaign_path": "Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>", "cartridge_id": "<new_card_id>", "version_lock": "1.0.x"}},
+    {"name": "set_active", "arguments": {"campaign_path": "Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>"}}
+  ]
+}
 ```
-
-> 注意：脚本在当前卡带根目录下运行（`Game_Cartridge/<cartridge_root>/game_cn/`）。  
-> 禁止在 `Blank_Cartidge_template` 下创建新战役。
 
 ### 用户无需运行脚本（对话式控制）
 
@@ -43,13 +45,11 @@ AI 会在后台执行脚本，并完成 `ACTIVE.md` 的更新。
 
 ## 2) 纯 prompt 手工方式（无脚本场景）
 
-当用户说“新开战役”时，DM 必须按顺序执行（内部/工具层完成）：
+当用户说“新开战役”时，DM 必须按顺序输出 JSON tool_calls：
 
-1. 在 **独立卡带根目录** 下复制模板  
-   `Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template`  
-   → `Game_Cartridge/<cartridge_root>/game_cn/campaigns/<new_id>`
-2. 更新 `ACTIVE.md` 为新路径
-3. 更新新战役的 `CAMPAIGN.md`（cartridge_id/版本锁）
-4. 运行 `<初始化>`（按 `engine/INIT_PROTOCOL.md` 完成落盘）
+1. `copy_template`
+2. `bind_campaign`
+3. `set_active`
+4. `init_campaign`（按 `engine/INIT_PROTOCOL.md` 完成落盘）
 
 失败时：宁可停在“未切换成功”也不要写错 `ACTIVE.md`。

@@ -32,8 +32,8 @@
 - `ACTIVE.md`
 - `campaigns/<id>/CAMPAIGN.md`
 - `cartridges/<id>/CARTRIDGE.md`
-- `campaigns/<id>/HOT_PACK.md`
-- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/HOT_PACK.json`
+- `campaigns/<id>/STATE_PANEL.json`
 - `campaigns/<id>/sessions/CURRENT_SESSION.md` → `session_*.md` tail Decision
 - `campaigns/<id>/index.md` (only “main thread / next goal” block)
 - **Optional**: `campaigns/<id>/.DM_BLUEPRINT.md` (read **SPINE summary only**, not full)

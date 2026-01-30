@@ -9,6 +9,7 @@ This directory stores **skills that can be installed at Codex system level** (st
 - `rpg-dm-fiction-sync`: Session→novel synchronization (does not create new Canon)
 - `rpg-dm-maps`: Map content pack maintenance (triad: render/data/logic + fog-of-war + version)
 - `rpg-dm-governance-panel`: Governance panel maintenance (assets/followers/army/income/governance clocks)
+- `rpg-dm-function-calling-local`: Local function calling (JSON tool_calls + role whitelist + tools_runner)
 
 ## Installation Methods (Choose One)
 

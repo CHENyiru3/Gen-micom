@@ -5,6 +5,7 @@
 > **Role split**: See `engine/ROLE_SYSTEMS.md` (AUTHOR/BUILDER/DM scopes).  
 > **Role entry**: `engine/System_AUTHOR.md` / `engine/System_BUILDER.md` / `engine/System_DM.md` / `engine/System_SAVE_READ.md`  
 > **Cheatsheet**: `engine/ROLE_ENTRY.md`
+> **Tools**: `skills_repo/rpg-dm-function-calling-local/references/tools.json` (function calling, JSON only)
 
 ---
 
@@ -16,12 +17,12 @@ Minimum read set:
 - `ACTIVE.md`
 - `campaigns/<id>/CAMPAIGN.md`
 - `cartridges/<id>/CARTRIDGE.md`
-- `campaigns/<id>/HOT_PACK.md`
+- `campaigns/<id>/HOT_PACK.json`
 - `campaigns/<id>/PLAYER_PROFILE.md`
 - `campaigns/<id>/characters/PCs/pc_current.md`
-- `campaigns/<id>/OBJECT_INDEX.md`
+- `campaigns/<id>/OBJECT_INDEX.json`
 - `campaigns/<id>/sessions/CURRENT_SESSION.md` → Corresponding `campaigns/<id>/sessions/session_*.md` ending Decision
-- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/STATE_PANEL.json`
 - `campaigns/<id>/index.md` (only read "next goal/pointer")
 
 Initialization entry: `engine/INIT_PROTOCOL.md`
@@ -38,14 +39,14 @@ Initialization entry: `engine/INIT_PROTOCOL.md`
 
 ## 0.2 User Guide Prompt (Once Only)
 
-- After each new/load campaign: if `guide_shown` in `HOT_PACK.md` is empty or `0`, output a **one‑time** short user guide.
-- After output, write back `guide_shown=1` to `HOT_PACK.md` via ARCHIVE_DELTA patch.
+- After each new/load campaign: if `guide_shown` in `HOT_PACK.json` is empty or `0`, output a **one‑time** short user guide.
+- After output, write back `guide_shown=1` to `HOT_PACK.json` via ARCHIVE_DELTA patch.
 
 ---
 
 ## 0.3 Load Consistency (Anti‑hallucination)
 
-- **No new facts on load/continue**: recovery output must only restate `*_snapshot.md` + `HOT_PACK.md`.
+- **No new facts on load/continue**: recovery output must only restate `*_snapshot.md` + `HOT_PACK.json`.
 - **Do not invent** new clues/NPCs/locations/text; if missing, say “not recorded / requires player action”.
 - **Recovery output must be labeled as “Load Summary”**, and must not advance the plot.
 
@@ -73,7 +74,7 @@ Scopes and restrictions are defined in `engine/ROLE_SYSTEMS.md`.
 ## 1) World Instance: Content Pack Entry (Will Change)
 
 ### 1.1 State
-- `campaigns/<id>/STATE_PANEL.md` (player-visible persistent panel)
+- `campaigns/<id>/STATE_PANEL.json` (player-visible persistent panel)
 - `campaigns/<id>/index.md` (navigation index/short summary)
 - `campaigns/<id>/WORLD_STATE.md` (backend world state: indicators, clocks, complete clue index)
 - `campaigns/<id>/GOVERNANCE_PANEL.md` (governance panel: territory/followers/assets; optional)
@@ -142,7 +143,7 @@ Scopes and restrictions are defined in `engine/ROLE_SYSTEMS.md`.
 3. `SESSION_INDEX.md` points only to latest **snapshot**
 
 **Dialogue reference constraint**:
-- Dialogue reads only `*_snapshot.md` + `HOT_PACK.md`
+- Dialogue reads only `*_snapshot.md` + `HOT_PACK.json`
 - `*_compressed.md` is consulted only on explicit backstory request
 
 ### Turn End Checklist
@@ -150,8 +151,8 @@ Scopes and restrictions are defined in `engine/ROLE_SYSTEMS.md`.
 **Must execute ALL steps in order at the end of each dialogue round:**
 
 1. [ ] Write session MD (record actions and results)
-2. [ ] Update STATE_PANEL.md (indicators, NPCs, clues, clocks)
-3. [ ] Update HOT_PACK.md (context pack)
+2. [ ] Update STATE_PANEL.json (indicators, NPCs, clues, clocks)
+3. [ ] Update HOT_PACK.json (context pack)
 4. [ ] Output scene summary + available actions in dialogue
 5. [ ] Show HUD shortcode menu (if interactive objects exist)
 6. [ ] **Compress history before last turn (*_compressed.md)** (MANDATORY)

@@ -3,7 +3,7 @@
 > **目标**：让用户自定义角色与游玩偏好，并把这些偏好外置成"稳定数据"，用于 DM 个性化与上下文压缩。
 > **内核**：回合运行仍以 `KERNEL_PROMPT.md` 为准；本文件只定义"初始化如何落盘"。
 >
-> **推荐流程（两段式）**：先用对话收集 Step A/B/C 的答案并确认摘要 → 再由 AI 自动执行 `python3 scripts/campaign_manager.py init ...` 进行落盘。支持 `--from answers.json` 导入 JSON 格式答案（JSON keys 映射见 §1.1）。
+> **推荐流程（两段式）**：先用对话收集 Step A/B/C 的答案并确认摘要 → 再由 AI 输出 **JSON tool_calls** 调用 `init_campaign` 进行落盘（JSON keys 映射见 §1.1）。
 
 ---
 
@@ -14,18 +14,18 @@
 - 玩家偏好（稳定）：`campaigns/<id>/PLAYER_PROFILE.md`
 - PC 档案（稳定）：`campaigns/<id>/characters/PCs/pc_current.md`
 - 0 号会话已切换：创建 `campaigns/<id>/sessions/session_YYYY-MM-DD_<slug>.md`，并 patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
-- 状态面板已填充：`campaigns/<id>/STATE_PANEL.md`
-- 热启动包已写入：`campaigns/<id>/HOT_PACK.md`（`CONTEXT_PACK_NEXT`）
+- 状态面板已填充：`campaigns/<id>/STATE_PANEL.json`
+- 热启动包已写入：`campaigns/<id>/HOT_PACK.json`（`CONTEXT_PACK_NEXT`）
 - DM 规划文件存在：`.DM_PLANNER.md`（隐藏，不对玩家泄露）
 - **主线蓝图存在**：`campaigns/<id>/.DM_BLUEPRINT.md`（主线/关键人物/关系网）
-- **主线面板存在**：`campaigns/<id>/MAINLINE_PANEL.md`
+- **主线面板存在**：`campaigns/<id>/MAINLINE_PANEL.json`
 
 ---
 
 ## 1) 初始化交互步骤（建议 3 回合完成）
 
 > **推荐执行方式（两段式）**：  
-> 先用对话把 Step A/B/C 的答案收集齐并确认摘要 → 再由 AI 自动执行 `python3 scripts/campaign_manager.py init ...` 进行落盘（确保产物齐全且格式稳定）。
+> 先用对话把 Step A/B/C 的答案收集齐并确认摘要 → 再由 AI 输出 JSON tool_calls 调用 `init_campaign` 落盘（确保产物齐全且格式稳定）。
 
 ### Step A：偏好与安全（OOC）
 询问并写入 `campaigns/<id>/PLAYER_PROFILE.md`：
@@ -61,9 +61,9 @@
 完成后：
 - 创建新 session 文件并写入 `Decision: 初始化`（append）
 - Patch `campaigns/<id>/sessions/CURRENT_SESSION.md` 指向新文件
-- Patch `campaigns/<id>/STATE_PANEL.md`：时间/地点/指标初始化、任务空表、时钟空表
-- Patch `campaigns/<id>/HOT_PACK.md` 写入首个 `CONTEXT_PACK_NEXT`
-- Patch `campaigns/<id>/MAINLINE_PANEL.md`（写入主线状态）
+- Patch `campaigns/<id>/STATE_PANEL.json`：时间/地点/指标初始化、任务空表、时钟空表
+- Patch `campaigns/<id>/HOT_PACK.json` 写入首个 `CONTEXT_PACK_NEXT`
+- Patch `campaigns/<id>/MAINLINE_PANEL.json`（写入主线状态）
 
 ### Step D：主线蓝图生成（幕后，强制）
 基于 **世界设定 + 玩家偏好** 生成幕后大纲（不展示给玩家）：
@@ -73,7 +73,7 @@
 - 关系网（最多 8 条边，A—关系—B）
 - 变体空间：可替换的支线入口（2–3 条）
 
-写入 `campaigns/<id>/.DM_BLUEPRINT.md`，并在 `HOT_PACK.md` 顶部写入 4–6 行 **SPINE 摘要**（≤6 行）：
+写入 `campaigns/<id>/.DM_BLUEPRINT.md`，并在 `HOT_PACK.json` 顶部写入 4–6 行 **SPINE 摘要**（≤6 行）：
 ```
 SPINE:
 - 主线1…
@@ -93,7 +93,7 @@ THEME: ...
 JSON keys（建议全用 snake_case）：
 
 ### 时间与会话
-- `date` → `campaigns/<id>/sessions/session_YYYY-MM-DD_<slug>.md`、`campaigns/<id>/STATE_PANEL.md`、`campaigns/<id>/HOT_PACK.md`
+- `date` → `campaigns/<id>/sessions/session_YYYY-MM-DD_<slug>.md`、`campaigns/<id>/STATE_PANEL.json`、`campaigns/<id>/HOT_PACK.json`
 - `slug` → session 文件名 `<slug>`（未给则由 `pc_name`+`start_loc` 生成）
 
 ### 偏好（写入 `campaigns/<id>/PLAYER_PROFILE.md` “偏好摘要”）
@@ -114,7 +114,7 @@ JSON keys（建议全用 snake_case）：
 - `pc_weakness`
 - `pc_bg_hook`
 
-### 开局（写入 `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/HOT_PACK.md` / session 的 Decision）
+### 开局（写入 `campaigns/<id>/STATE_PANEL.json` / `campaigns/<id>/HOT_PACK.json` / session 的 Decision）
 - `start_loc`
 - `start_hook`
 
@@ -123,6 +123,6 @@ JSON keys（建议全用 snake_case）：
 ## 2) 上下文压缩策略（必须）
 
 每回合只需要从偏好中携带 1 行：
-- 从 `campaigns/<id>/PLAYER_PROFILE.md` 的“偏好摘要”复制 1 行到 `campaigns/<id>/HOT_PACK.md` 的 `flags`（例如 `STYLE=写实-高压-调查优先`）
+- 从 `campaigns/<id>/PLAYER_PROFILE.md` 的“偏好摘要”复制 1 行到 `campaigns/<id>/HOT_PACK.json` 的 `flags`（例如 `STYLE=写实-高压-调查优先`）
 
 其余偏好细节只在“风格明显偏离/玩家修改偏好”时再读。

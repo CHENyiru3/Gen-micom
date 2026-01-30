@@ -84,3 +84,10 @@ Suggested structure:
 ## 7) Prohibited
 - No `campaigns/**` reads or writes
 - No turn narration output
+
+---
+
+## 8) Function Calling (Mandatory)
+
+- Use `skills_repo/rpg-dm-function-calling-local/references/tools.json` tool definitions; output JSON tool_calls only.
+- Index/handle updates must use `write_patch` / `register_handle` / `validate_index_spec`.

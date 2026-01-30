@@ -7,7 +7,7 @@
 ## 输入
 - 玩家输入（必须含命令头）
 - cartridges/<id>/CARTRIDGE.md 的 routes
-- campaigns/<id>/HOT_PACK.md
+- campaigns/<id>/HOT_PACK.json
 - campaigns/<id>/index.md（只取顶部快照）
 
 ## 输出

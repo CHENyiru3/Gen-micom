@@ -16,7 +16,7 @@ Use this skill when the user asks to "write novel / continue novel / sync main t
 
 1. Read `campaigns/<id>/Writing/Fiction_index.md` for progress/queue.
 2. Read the relevant `campaigns/<id>/sessions/session_*.md` decisions (only the needed parts).
-3. Cross-check against `campaigns/<id>/index.md` + `campaigns/<id>/STATE_PANEL.md`.
+3. Cross-check against `campaigns/<id>/index.md` + `campaigns/<id>/STATE_PANEL.json`.
 4. Write fiction in the repo's chosen style, keeping POV consistent.
 5. Update `campaigns/<id>/Writing/Fiction_index.md` and optionally record issues in `campaigns/<id>/Writing/CONTINUITY_ISSUES.md`.
 

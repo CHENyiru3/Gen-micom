@@ -31,9 +31,9 @@
 4. 生成初始化产物（见 `engine/INIT_PROTOCOL.md`）：
    - `PLAYER_PROFILE.md`
    - `characters/PCs/pc_current.md`
-   - `STATE_PANEL.md`
-   - `MAINLINE_PANEL.md`
-   - `HOT_PACK.md`（含 SPINE 摘要）
+   - `STATE_PANEL.json`
+   - `MAINLINE_PANEL.json`
+   - `HOT_PACK.json`（含 SPINE 摘要）
    - `.DM_BLUEPRINT.md`（主线蓝图）
    - `sessions/` + `CURRENT_SESSION.md`
 
@@ -42,7 +42,7 @@
 ## 3) 主线蓝图（必须）
 - 基于世界设定 + 玩家偏好，生成 2–4 条主线 + 5–8 个关键人物；如果用户强烈要求做成长线开放世界则按需扩展。
 - 写入 `campaigns/<id>/.DM_BLUEPRINT.md`
-- 把 4–6 行 SPINE 摘要写入 `HOT_PACK.md` 顶部
+- 把 4–6 行 SPINE 摘要写入 `HOT_PACK.json` 顶部
 
 ---
 
@@ -58,6 +58,13 @@
 ## 5) 禁止事项
 - 禁止读取 `sessions/**` 全量剧情
 - 禁止生成回合叙事输出
+
+---
+
+## 6) Function Calling（强制）
+
+- 使用 `skills_repo/rpg-dm-function-calling-local/references/tools.json` 的工具定义；只输出 JSON tool_calls。
+- 复制/绑定/初始化/切换必须使用 `copy_template` / `bind_campaign` / `init_campaign` / `set_active`。
 
 ## 6）完成任务后提醒玩家新开一个AI对话窗口进行新对话
 提醒用户使用Sysmte_DM.md进行正式的游玩。

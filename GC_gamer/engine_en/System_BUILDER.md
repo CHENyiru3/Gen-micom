@@ -31,9 +31,9 @@
 4. Generate initialization outputs (see `engine/INIT_PROTOCOL.md`):
    - `PLAYER_PROFILE.md`
    - `characters/PCs/pc_current.md`
-   - `STATE_PANEL.md`
-   - `MAINLINE_PANEL.md`
-   - `HOT_PACK.md` (includes SPINE summary)
+   - `STATE_PANEL.json`
+   - `MAINLINE_PANEL.json`
+   - `HOT_PACK.json` (includes SPINE summary)
    - `.DM_BLUEPRINT.md` (mainline blueprint)
    - `sessions/` + `CURRENT_SESSION.md`
 
@@ -42,7 +42,7 @@
 ## 3) Mainline Blueprint (Required)
 - Based on world setting + player preferences, create 2–4 main arcs + 5–8 key NPCs
 - Write to `campaigns/<id>/.DM_BLUEPRINT.md`
-- Inject 4–6 line SPINE summary at top of `HOT_PACK.md`
+- Inject 4–6 line SPINE summary at top of `HOT_PACK.json`
 
 ---
 
@@ -58,3 +58,10 @@
 ## 5) Prohibited
 - No full `sessions/**` reads
 - No turn narration
+
+---
+
+## 6) Function Calling (Mandatory)
+
+- Use `skills_repo/rpg-dm-function-calling-local/references/tools.json` tool definitions; output JSON tool_calls only.
+- Copy/bind/init/switch must use `copy_template` / `bind_campaign` / `init_campaign` / `set_active`.

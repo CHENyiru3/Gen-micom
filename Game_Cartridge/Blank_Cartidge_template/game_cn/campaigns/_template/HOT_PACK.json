@@ -1,0 +1,13 @@
+{
+  "spine": ["主线1（占位）", "主线2（占位）"],
+  "key_npcs": [],
+  "theme": "",
+  "mainline": "",
+  "context": {
+    "t": "",
+    "loc": "",
+    "pc": "",
+    "guide_shown": 0,
+    "flags": ""
+  }
+}

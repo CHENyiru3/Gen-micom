@@ -23,6 +23,6 @@ game_en/
 ├── cartridges/_template/        # Cartridge template (minimal indices)
 └── campaigns/_template/        # Campaign skeleton (HOT_PACK/STATE_PANEL/sessions/…)
     └── .DM_BLUEPRINT.md        # Mainline blueprint (DM only)
-    ├── MAINLINE_PANEL.md       # Mainline panel (ultra‑short)
-    └── clues/CLUE_LOG.md       # Clue log (separate from quests)
+    ├── MAINLINE_PANEL.json       # Mainline panel (ultra‑short)
+    └── clues/CLUE_LOG.json       # Clue log (separate from quests)
 ```

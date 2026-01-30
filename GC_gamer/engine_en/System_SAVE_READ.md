@@ -16,8 +16,8 @@
 - `campaigns/<id>/CAMPAIGN.md`
 - `campaigns/<id>/sessions/CURRENT_SESSION.md`
 - Latest `campaigns/<id>/sessions/session_*.md` (Decision tail only)
-- `campaigns/<id>/HOT_PACK.md`
-- `campaigns/<id>/STATE_PANEL.md`
+- `campaigns/<id>/HOT_PACK.json`
+- `campaigns/<id>/STATE_PANEL.json`
 - `campaigns/<id>/index.md`
 
 ---
@@ -31,7 +31,7 @@
 ---
 
 ## 3) Load Rules (Required)
-- Load uses only `*_snapshot.md` + `HOT_PACK.md`
+- Load uses only `*_snapshot.md` + `HOT_PACK.json`
 - Output must be labeled as “Load Summary”
 - **Do not introduce** new clues/NPCs/locations/text
 
@@ -40,3 +40,9 @@
 ## 4) Write Scope
 - Write only `campaigns/<id>/**` and `ACTIVE.md`
 
+---
+
+## 5) Function Calling (Mandatory)
+
+- Use `skills_repo/rpg-dm-function-calling-local/references/tools.json` tool definitions; output JSON tool_calls only.
+- Save/compress/load must use `snapshot_update` / `compress_history` / `load_snapshot`.

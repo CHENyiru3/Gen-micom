@@ -29,7 +29,7 @@ engine_en/
 │   ├── RAG_RULES.md          # RAG retrieval rules
 │   ├── RANDOM_TABLES.md      # Random encounter tables
 │   ├── SOCIAL_INVESTIGATION.md
-│   ├── STATE_PANEL_SPEC.md   # State panel field spec
+│   ├── skills_repo/rpg-dm-function-calling-local/references/panels.json   # State panel field spec
 │   ├── SURVIVAL.md           # Survival rules
 │   └── TRACKERS.md           # Tracker templates
 ├── scripts/                  # Utility scripts

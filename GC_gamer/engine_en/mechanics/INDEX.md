@@ -44,7 +44,7 @@
 | `RAG_RULES.md` | RAG retrieval rules | When retrieval needed |
 | `CONTEXT_PACK.md` | Context Pack specification (stable) | When context recovery/paste package needed |
 | `CONTEXT_PACK_EXAMPLES.md` | Context Pack examples (variable) | When reference needed |
-| `STATE_PANEL_SPEC.md` | STATE_PANEL field specification (stable) | When maintaining panel format |
+| `skills_repo/rpg-dm-function-calling-local/references/panels.json` | STATE_PANEL field specification (stable) | When maintaining panel format |
 
 ---
 

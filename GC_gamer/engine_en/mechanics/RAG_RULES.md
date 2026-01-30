@@ -60,7 +60,7 @@ Priority: Event > State > Canon > Writing
 ```
 
 1. Check `campaigns/<id>/sessions/session_*.md` (Event)
-2. Check `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md` / `campaigns/<id>/STATE_PANEL.md` (State)
+2. Check `campaigns/<id>/index.md` / `campaigns/<id>/WORLD_STATE.md` / `campaigns/<id>/STATE_PANEL.json` (State)
 3. Check `cartridges/<id>/lore/CANON/*` (Canon)
 4. Writing only used for "consistency check", not as setting source
 

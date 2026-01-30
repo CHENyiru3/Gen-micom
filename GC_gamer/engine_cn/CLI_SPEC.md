@@ -39,9 +39,9 @@
 
 ### 特殊控制指令（不进剧情）
 
-- **`<初始化>`**：开始新战役初始化。流程：先用对话收集偏好/PC/开局钩子 → 确认后自动执行 `python3 scripts/campaign_manager.py init ...` 落盘。**支持 `--from answers.json` 导入 JSON 格式答案**（JSON keys 映射见 INIT_PROTOCOL.md §1.1）。
-- `<新战役 campaign_0002>`：创建并切换到新战役（AI 执行脚本与符号链接切换）
-- `<切换战役 campaigns/campaign_0001>`：切换到已有战役（AI 执行符号链接切换）
+- **`<初始化>`**：开始新战役初始化。流程：先用对话收集偏好/PC/开局钩子 → 确认后输出 **JSON tool_calls** 执行 `init_campaign` 落盘（答案 JSON keys 见 INIT_PROTOCOL.md §1.1）。
+- `<新战役 campaign_0002>`：创建并切换到新战役（AI 输出 `copy_template` + `bind_campaign` + `set_active` 的 JSON tool_calls）
+- `<切换战役 campaigns/campaign_0001>`：切换到已有战役（AI 输出 `set_active` 的 JSON tool_calls）
 - `<热启动>` / `<继续>`：按 `HOT_START.md` 恢复并继续
 
 **双层系统**：
@@ -225,7 +225,7 @@ Q1: 探索采石场 | Q2: 调查他们
 2. **加命令头**：让我知道你到底想干嘛类型
 3. **需要帮助时**：看HUD短码菜单，直接复制粘贴
 4. **OOC问题**：用 `[OOC]` 标签
-5. **新战役**：用 `<初始化>` 开始配置（角色与偏好）
+5. **新战役**：用 `<初始化>` 开始配置（角色与偏好，内部转 JSON tool_calls）
 
 ---
 

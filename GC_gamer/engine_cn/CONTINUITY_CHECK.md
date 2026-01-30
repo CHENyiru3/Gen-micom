@@ -9,9 +9,9 @@
 
 1. `campaigns/<id>/sessions/CURRENT_SESSION.md` 是否指向本次写入的 session 文件
 2. 当前 session 文件末尾是否存在最新 `Decision`（append）
-3. `campaigns/<id>/HOT_PACK.md` 的 `CONTEXT_PACK_NEXT` 是否与最新 Decision 一致（时间/地点/指标/钩子）
-4. `campaigns/<id>/STATE_PANEL.md` 是否已 patch（时间/指标/位置/任务/NPC/时钟至少一项有对应变化或保持不变）
-5. `campaigns/<id>/OBJECT_INDEX.md` 是否已 patch（active 对象指针与 1 行摘要）
+3. `campaigns/<id>/HOT_PACK.json` 的 `CONTEXT_PACK_NEXT` 是否与最新 Decision 一致（时间/地点/指标/钩子）
+4. `campaigns/<id>/STATE_PANEL.json` 是否已 patch（时间/指标/位置/任务/NPC/时钟至少一项有对应变化或保持不变）
+5. `campaigns/<id>/OBJECT_INDEX.json` 是否已 patch（active 对象指针与 1 行摘要）
 6. 若涉及世界宏观变化：`campaigns/<id>/WORLD_STATE.md` 是否已 patch（只做索引级更新）
 
 ### 可选：体验增强（建议）

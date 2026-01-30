@@ -3,7 +3,7 @@ Version: v1.1
 Last Updated: 2026-01-29
 
 > **Note**: This file is a "manual recording/printing template".
-> **Current Source of Truth**: Please use `campaigns/<id>/STATE_PANEL.md` (player side) and `campaigns/<id>/WORLD_STATE.md` (backend) as the standard; do not maintain "current values" here.
+> **Current Source of Truth**: Please use `campaigns/<id>/STATE_PANEL.json` (player side) and `campaigns/<id>/WORLD_STATE.md` (backend) as the standard; do not maintain "current values" here.
 
 ---
 

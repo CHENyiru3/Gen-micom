@@ -9,6 +9,7 @@
 - `rpg-dm-fiction-sync`：会话→小说同步（不产生新 Canon）
 - `rpg-dm-maps`：地图内容包维护（三件套：render/data/logic + fog-of-war + 版本）
 - `rpg-dm-governance-panel`：统治面板维护（资产/追随者/军队/收支/治理时钟）
+- `rpg-dm-function-calling-local`：本地 function calling（JSON tool_calls + role whitelist + tools_runner）
 
 ## 安装方式（两选一）
 

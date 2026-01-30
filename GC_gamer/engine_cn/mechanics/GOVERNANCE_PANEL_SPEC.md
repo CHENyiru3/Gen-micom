@@ -1,6 +1,6 @@
 # GOVERNANCE_PANEL_SPEC.md — 统治面板字段规范（内核接口）
 
-> **用途**：让 `campaigns/<id>/GOVERNANCE_PANEL.md` 可长期维护、可 patch、可检索；避免与 `campaigns/<id>/WORLD_STATE.md`/`campaigns/<id>/STATE_PANEL.md` 重复。
+> **用途**：让 `campaigns/<id>/GOVERNANCE_PANEL.md` 可长期维护、可 patch、可检索；避免与 `campaigns/<id>/WORLD_STATE.md`/`campaigns/<id>/STATE_PANEL.json` 重复。
 
 ---
 

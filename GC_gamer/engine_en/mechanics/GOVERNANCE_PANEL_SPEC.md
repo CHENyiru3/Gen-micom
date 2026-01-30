@@ -1,6 +1,6 @@
 # GOVERNANCE_PANEL_SPEC.md — Governance Panel Field Specification (Kernel Interface)
 
-> **Purpose**: Allow `campaigns/<id>/GOVERNANCE_PANEL.md` to be long-term maintainable, patchable, searchable; avoid duplication with `campaigns/<id>/WORLD_STATE.md`/`campaigns/<id>/STATE_PANEL.md`.
+> **Purpose**: Allow `campaigns/<id>/GOVERNANCE_PANEL.md` to be long-term maintainable, patchable, searchable; avoid duplication with `campaigns/<id>/WORLD_STATE.md`/`campaigns/<id>/STATE_PANEL.json`.
 
 ---
 

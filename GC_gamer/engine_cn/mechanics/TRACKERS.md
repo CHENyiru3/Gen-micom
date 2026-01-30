@@ -3,7 +3,7 @@
 最后更新：2026-01-29
 
 > **说明**：本文件是“手动记录/打印模板”。  
-> **当前真源**：请以 `campaigns/<id>/STATE_PANEL.md`（玩家侧）与 `campaigns/<id>/WORLD_STATE.md`（后台）为准；不要在这里维护“当前值”。
+> **当前真源**：请以 `campaigns/<id>/STATE_PANEL.json`（玩家侧）与 `campaigns/<id>/WORLD_STATE.md`（后台）为准；不要在这里维护“当前值”。
 
 ---
 

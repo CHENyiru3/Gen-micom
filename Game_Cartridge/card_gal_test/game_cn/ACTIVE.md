@@ -1,2 +1,0 @@
-active_campaign: campaign_gal_test
-path: Game_Cartridge/card_gal_test/game_cn/campaigns/campaign_gal_test

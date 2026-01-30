@@ -24,6 +24,6 @@ game_cn/
 ├── cartridges/_template/          # 卡带模板（最小内容索引）
 └── campaigns/_template/          # 存档模板（HOT_PACK/STATE_PANEL/sessions/…）
     └── .DM_BLUEPRINT.md          # 主线蓝图（DM Only）
-    ├── MAINLINE_PANEL.md         # 主线面板（极短）
-    └── clues/CLUE_LOG.md         # 线索日志（与任务分离）
+    ├── MAINLINE_PANEL.json         # 主线面板（极短）
+    └── clues/CLUE_LOG.json         # 线索日志（与任务分离）
 ```
