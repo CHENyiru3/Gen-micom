@@ -17,6 +17,8 @@ After initialization completes, must exist and remain patchable:
 - State panel filled: `campaigns/<id>/STATE_PANEL.md`
 - Hot start package written: `campaigns/<id>/HOT_PACK.md` (`CONTEXT_PACK_NEXT`)
 - DM planner file exists: `.DM_PLANNER.md` (hidden, not revealed to players)
+- **Mainline blueprint exists**: `campaigns/<id>/.DM_BLUEPRINT.md` (main arcs / key NPCs / relations)
+- **Mainline panel exists**: `campaigns/<id>/MAINLINE_PANEL.md`
 
 ---
 
@@ -64,6 +66,24 @@ After completion:
 - Patch `campaigns/<id>/sessions/CURRENT_SESSION.md` pointing to new file
 - Patch `campaigns/<id>/STATE_PANEL.md`: Time/location/indicators initialization, empty quest table, empty clock table
 - Patch `campaigns/<id>/HOT_PACK.md` writing first `CONTEXT_PACK_NEXT`
+- Patch `campaigns/<id>/MAINLINE_PANEL.md` (write mainline status)
+
+### Step D: Mainline Blueprint (Backstage, Mandatory)
+Generate a backstage outline based on **world setting + player preferences** (not shown to players):
+- 2–4 mainline arcs (1 sentence each)
+- 5–8 key NPCs (name / stance / relation)
+- Core conflicts & themes (2–4 items)
+- Relation graph (up to 8 edges, A—relation—B)
+- Variant space: swappable side entrances (2–3 items)
+
+Write to `campaigns/<id>/.DM_BLUEPRINT.md`, and inject a 4–6 line **SPINE summary** at the top of `HOT_PACK.md` (≤6 lines):
+```
+SPINE:
+- Arc 1…
+- Arc 2…
+KEY_NPCS: A, B, C
+THEME: ...
+```
 
 ---
 

@@ -26,4 +26,4 @@ Use this skill when the user asks to add/modify world content (NPCs, quests, loc
 - **New quest**: add to `cartridges/<id>/quests/QUEST_LOG.md`; keep status + hooks short.
 - **New lore**: add under `cartridges/<id>/lore/CANON/` (static) or `cartridges/<id>/lore/MIST/` (discoverable); update `cartridges/<id>/lore/INDEX.md`.
 - **Session logging**: append decisions to latest `campaigns/<id>/sessions/session_*.md` and keep `campaigns/<id>/sessions/SESSION_INDEX.md` updated.
-- **New cartridge**: copy `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/template/` → `cartridges/<new_id>/` and edit `CARTRIDGE.md`/aliases/invariants before spinning up a matching campaign.
+- **New cartridge**: copy `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/` → `cartridges/<new_id>/` and edit `CARTRIDGE.md`/aliases/invariants before spinning up a matching campaign.

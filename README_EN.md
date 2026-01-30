@@ -4,7 +4,7 @@ This repository implements a "Game Console (Engine) + Cartridge + Campaign" thre
 
 **Current Entry Points:**
 - **Shared Engine (Engine)**: `GC_gamer/engine_en/`
-- **Cartridge & Campaign**: `Game_Cartridge/Card0_rpg_Medieval_magic/game_en/`
+- **Cartridge & Campaign**: `Game_Cartridge/Blank_Cartidge_template/game_en/`
 
 ---
 
@@ -14,11 +14,11 @@ This repository implements a "Game Console (Engine) + Cartridge + Campaign" thre
   - Location: `GC_gamer/engine_cn/` (Chinese baseline)
   - Location: `GC_gamer/engine_en/` (English translated)
 - **Cartridge**: World settings and content library (lore / locations / quests / characters / maps)
-  - Location: `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/cartridges/<id>/`
+  - Location: `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/<id>/`
 - **Campaign**: Current game runtime state (HOT_PACK / STATE_PANEL / sessions / PCs)
-  - Location: `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/campaigns/<id>/`
+  - Location: `Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/<id>/`
 
-Entry Pointer: `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/ACTIVE.md`
+Entry Pointer: `Game_Cartridge/Blank_Cartidge_template/game_cn/ACTIVE.md`
 
 ---
 
@@ -26,8 +26,8 @@ Entry Pointer: `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/ACTIVE.md`
 
 ### 2.1 New Cartridge (Starting from Template)
 
-1. Copy `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/cartridges/template/`
-   → `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/cartridges/<new_card_id>/`
+1. Copy `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/`
+   → `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/<new_card_id>/`
 2. Edit `CARTRIDGE.md`: Fill in routes / aliases / invariants / feature_flags
 3. Fill minimum content index (lore/locations/quests/characters/maps)
 

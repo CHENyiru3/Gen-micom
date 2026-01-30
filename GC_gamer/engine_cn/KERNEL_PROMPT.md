@@ -27,6 +27,7 @@
 - `campaigns/<id>/WORLD_STATE.md`（宏观指标 / 线索索引）
 - `engine/mechanics/*.md`（触发战斗/社交/生存/治理等机制时）
 - `campaigns/<id>/GOVERNANCE_PANEL.md`（触发治理/势力经营时）
+- `campaigns/<id>/.DM_BLUEPRINT.md`（主线蓝图：只读 SPINE 摘要区）
 - `cartridges/<id>/maps/MAP_INDEX.md` + `cartridges/<id>/maps/**`（触发地图绘制/查询/一致性校验时）
 - `cartridges/<id>/lore/CANON/*`（需要“正史事实”时）
 - `cartridges/<id>/lore/MIST/*`（需要“迷雾规则/现象”时）
@@ -70,6 +71,10 @@
 
 冲突必须在本回合 `ARCHIVE_DELTA` 中写明“纠偏说明”。
 
+**主线一致性**：
+- `campaigns/<id>/.DM_BLUEPRINT.md` 与 `HOT_PACK` 的 `SPINE` 仅作“主线指导”，不是事实源
+- DM 必须确保主线不被替换；支线只能围绕主线推进并保留回归入口
+
 ---
 
 ## 3) 回合管线（Kernel Protocols，永远不变）
@@ -78,8 +83,18 @@
 目标：最少读取恢复上下文（不读长文）。
 - 从 `campaigns/<id>/STATE_PANEL.md` 抓取：时间/地点/指标/时钟/活跃任务/关键 NPC
 - 从最新 `campaigns/<id>/sessions/session_*.md` 末尾抓取：最近一次 Decision 与未结算风险/时钟
+- 从 `campaigns/<id>/characters/PCs/pc_current.md` 抓取：玩家姓名与核心画像
+- 若 `HOT_PACK.md` 顶部存在 `SPINE`，仅抓取 4–6 行主线摘要
 
 产物：`boot_state`（≤12 行摘要）
+
+### 3.1.1 用户指南提示（仅一次）
+- 在每次**新建/读取战役**后，若 `HOT_PACK.md` 中 `guide_shown` 为空或为 `0`，需在对话输出**一次**简短用户指南（命令头与热启动提示）。
+- 输出后将 `guide_shown=1` 写回 `HOT_PACK.md`（通过 ARCHIVE_DELTA patch）。
+
+### 3.1.2 递归压缩规则（执行阶段提示）
+- 每回合结束：只压缩“上一轮之前历史”，保留“上一轮+本轮”完整细节到快照。
+- 运行时只读 `*_快照.md`，`*_压缩.md` 仅用于回溯。
 
 ### 3.2 C1 PARSE_INPUT（解析意图）
 把玩家输入归类为：
@@ -97,7 +112,8 @@
 
 ### 3.4 C3 RULE_RESOLVE（裁决）
 - 必要才检定/掷骰；展示公式
-- 失败前进：失败＝代价 + 新局势（不是“没发生”）
+- **允许“无发现/无推进”**：多数普通行动应以“无发现”告终，信息不应无限膨胀
+- **失败前进**：只在存在明确风险/代价时使用（失败＝代价 + 新局势）
 - 结算指标变化（见 `cartridges/<id>/lore/MECHANICS/INDICATORS.md`）
 - 推进时钟（若存在）
 
@@ -105,7 +121,18 @@
 - 开场画面 2–4 句（时间/气味/阶层/压力）
 - 执行结果（含掷骰/判定）
 - 后果落地（社会/法律/资源/关系/指标/时钟）
+- **若无发现/无推进**：明确说明“未发现关键线索/无新进展”，并给出合理原因（视线/时间/遮挡/噪声/误判）
 - **永不替 PC 做决定或代言**
+
+### 3.5.1 固定叙事样式（强制）
+- 使用“段落分区 + 列表 + 结尾动作”格式，不随模型变化：
+  1) 行为叙述（1段）
+  2) 判定块（含风险/DC）
+  3) 结果表（行动/结果）
+  4) 发现/物品（分条）
+  5) 摘要（如有关键文本，给“摘要”而非全文）
+  6) 内心（如触发）
+  7) 可选动作（3–5条，统一为 `[ACT]{...}`）
 
 ### 3.6 C5 ACTION_MENU（推荐）
 给 5 个下一步建议：
@@ -125,6 +152,7 @@ HUD 必须短（≤10 行），输出本回合可交互对象短码：
 ### 3.8 C7 ARCHIVE_DELTA（增量存档）
 必须输出可机器解析的增量块（HTML 注释，玩家不可见）：
 - 只能 append / patch：**不准整文件重写**
+- **任何有效行动都必须写入**：所有 `ACT/LOOK/ASK/FIGHT/CAST/MANAGE` 都必须 append 到 `sessions/session_*.md`（即使“无发现/无推进”也要记录）
 - 至少更新：最新 `campaigns/<id>/sessions/session_*.md`（append），并按需 patch `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/index.md` / 相关 quest/NPC/location 文件
 - **确保持久热启动**：每回合必须 patch `campaigns/<id>/HOT_PACK.md`，并在新建/切换会话时 patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
 - **减少扫描成本**：本回合涉及到的活跃 NPC/任务/地点/地图变动时，同步 patch `campaigns/<id>/OBJECT_INDEX.md`

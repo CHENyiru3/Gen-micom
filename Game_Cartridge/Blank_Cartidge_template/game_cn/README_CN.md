@@ -6,7 +6,7 @@
 
 1. **创建新卡带**
    - 复制本模板的卡带目录：
-     `cartridges/template/` → `cartridges/<new_card_id>/`
+     `cartridges/_template/` → `cartridges/<new_card_id>/`
    - 更新 `CARTRIDGE.md`（routes / aliases / invariants / feature_flags）
 
 2. **创建新存档（战役）**
@@ -21,6 +21,9 @@
 
 ```
 game_cn/
-├── cartridges/template/          # 卡带模板（最小内容索引）
+├── cartridges/_template/          # 卡带模板（最小内容索引）
 └── campaigns/_template/          # 存档模板（HOT_PACK/STATE_PANEL/sessions/…）
+    └── .DM_BLUEPRINT.md          # 主线蓝图（DM Only）
+    ├── MAINLINE_PANEL.md         # 主线面板（极短）
+    └── clues/CLUE_LOG.md         # 线索日志（与任务分离）
 ```

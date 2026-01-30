@@ -8,7 +8,7 @@
 
 - Engine (shared): `engine/` (protocols/mechanics/scripts)
 - Cartridge (world content): `cartridges/<cartridge_id>/`
-- Template Cartridge: `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/template/` (starting point for all new cartridges)
+- Template Cartridge: `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/` (starting point for all new cartridges)
 - Campaign (save): `campaigns/<campaign_id>/`
 - Current campaign pointer: `ACTIVE.md`
 

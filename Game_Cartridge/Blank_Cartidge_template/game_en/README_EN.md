@@ -5,7 +5,7 @@ This template is designed for **AI‑driven dialogue workflows** to create a new
 ## Dialogue Workflow (Recommended)
 
 1) **Create a new cartridge**
-   - Copy: `cartridges/template/` → `cartridges/<new_card_id>/`
+   - Copy: `cartridges/_template/` → `cartridges/<new_card_id>/`
    - Update `CARTRIDGE.md` (routes / aliases / invariants / feature_flags)
 
 2) **Create a new campaign**
@@ -20,6 +20,9 @@ This template is designed for **AI‑driven dialogue workflows** to create a new
 
 ```
 game_en/
-├── cartridges/template/        # Cartridge template (minimal indices)
+├── cartridges/_template/        # Cartridge template (minimal indices)
 └── campaigns/_template/        # Campaign skeleton (HOT_PACK/STATE_PANEL/sessions/…)
+    └── .DM_BLUEPRINT.md        # Mainline blueprint (DM only)
+    ├── MAINLINE_PANEL.md       # Mainline panel (ultra‑short)
+    └── clues/CLUE_LOG.md       # Clue log (separate from quests)
 ```

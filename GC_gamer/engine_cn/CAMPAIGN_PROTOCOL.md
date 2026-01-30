@@ -8,7 +8,7 @@
 
 - Engine（共享）：`engine/`（协议/机制/脚本）
 - Cartridge（世界内容）：`cartridges/<cartridge_id>/`
-- Template 卡带：`Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/template/`（所有新卡带的起点）
+- Template 卡带：`Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/`（所有新卡带的起点）
 - Template 存档：`Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/_template/`（新战役存档骨架）
 - Campaign（存档）：`campaigns/<campaign_id>/`
 - 当前战役指针：`ACTIVE.md`

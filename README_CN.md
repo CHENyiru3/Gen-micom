@@ -4,7 +4,7 @@
 
 当前入口：
 - **共享引擎（Engine）**：`GC_gamer/engine_cn/`
-- **卡带与存档（Cartridge/Campaign）**：`Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/`
+- **卡带与存档（Cartridge/Campaign）**：`Game_Cartridge/Blank_Cartidge_template/game_cn/`
 
 ---
 
@@ -14,11 +14,11 @@
   - 位于：`GC_gamer/engine_cn/`（中文）
   - 位于：`GC_gamer/engine_en/`（英文）
 - **卡带（Cartridge）**：世界设定与内容库（lore / locations / quests / characters / maps）
-  - 位于：`Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/cartridges/<id>/`
+  - 位于：`Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/<id>/`
 - **存档（Campaign）**：当前游戏运行态（HOT_PACK / STATE_PANEL / sessions / PCs）
-  - 位于：`Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/campaigns/<id>/`
+  - 位于：`Game_Cartridge/Blank_Cartidge_template/game_cn/campaigns/<id>/`
 
-入口指针：`Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/ACTIVE.md`
+入口指针：`Game_Cartridge/Blank_Cartidge_template/game_cn/ACTIVE.md`
 
 ---
 
@@ -26,8 +26,8 @@
 
 ### 2.1 新卡带（从模板卡带起步）
 
-1. 复制 `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/cartridges/template/`
-   → `Game_Cartridge/Card0_rpg_Medieval_magic/game_cn/cartridges/<new_card_id>/`
+1. 复制 `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/_template/`
+   → `Game_Cartridge/Blank_Cartidge_template/game_cn/cartridges/<new_card_id>/`
 2. 编辑 `CARTRIDGE.md`：填写 routes / aliases / invariants / feature_flags
 3. 填充最小内容索引（lore/locations/quests/characters/maps）
 
@@ -126,3 +126,30 @@ AI 会自动完成：
 - 极小 token 预算下稳定推进
 - 世界设定与运行态分离
 - 可持续热插拔卡带与存档恢复
+
+## 说明书：玩家交互指南
+命令头（行首必须）
+标签	用途	示例
+[ACT] / [行动]	做事	[ACT]{检查锁门}
+[LOOK] / [观察]	观察	[LOOK]{观察人群}
+[ASK] / [对话]	说话	[ASK]"你是谁？"
+[FIGHT] / [战斗]	打架	[FIGHT]{先发制人}
+[CAST] / [施法]	施法	[CAST]{祈祷}
+[MANAGE] / [管理]	后勤	[MANAGE]{检查背包}
+[OOC]	规则/系统	[OOC] DC是多少？
+内心对话
+
+[ACT]{内心: 学者}     ← 知识/推理时
+[ACT]{内心: 怀疑}     ← 信仰/教会相关
+[ACT]{内心: 圣灵}     ← 祈祷/异象时
+短码菜单
+每回合结束会显示菜单，可用短码直接输入：
+
+
+[ACT]{与 N1 交谈}     ← N1 = 第一个NPC
+[ACT]{去 L2}          ← L2 = 第二个地点
+快速示例
+
+[ACT]{观察广场上的人群} --risk low
+[ASK]"他们犯了什么罪？"
+[ACT]{内心: 学者} ← 触发学者内心独白

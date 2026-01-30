@@ -27,6 +27,7 @@
 - `campaigns/<id>/WORLD_STATE.md` (macro indicators / clue index)
 - `engine/mechanics/*.md` (when combat/social/survival/governance mechanisms triggered)
 - `campaigns/<id>/GOVERNANCE_PANEL.md` (when governance/territory management triggered)
+- `campaigns/<id>/.DM_BLUEPRINT.md` (mainline blueprint: read **SPINE summary only**)
 - `cartridges/<id>/maps/MAP_INDEX.md` + `cartridges/<id>/maps/**` (when map drawing/query/consistency check triggered)
 - `cartridges/<id>/lore/CANON/*` (when "canonical facts" needed)
 - `cartridges/<id>/lore/MIST/*` (when "mist rules/phenomena" needed)
@@ -71,6 +72,10 @@ When information conflicts, priority is fixed:
 
 Conflicts must be written in this turn's `ARCHIVE_DELTA` with "correction note".
 
+**Mainline consistency**:
+- `campaigns/<id>/.DM_BLUEPRINT.md` and `HOT_PACK` `SPINE` are **guidance**, not facts
+- DM must preserve the mainline; side quests can branch but must keep a return path
+
 ---
 
 ## 3) Turn Pipeline (Kernel Protocols, Never Change)
@@ -79,8 +84,18 @@ Conflicts must be written in this turn's `ARCHIVE_DELTA` with "correction note".
 Goal: Minimum read to recover context (not read long text).
 - From `campaigns/<id>/STATE_PANEL.md` grab: Time/location/indicators/clocks/active quest/key NPC
 - From latest `campaigns/<id>/sessions/session_*.md` ending grab: Most recent Decision and unresolved risks/clocks
+- From `campaigns/<id>/characters/PCs/pc_current.md` grab: player name and core profile
+- If `HOT_PACK.md` starts with `SPINE`, grab only the 4–6 line mainline summary
 
 Product: `boot_state` (≤12 line summary)
+
+### 3.1.1 User Guide Prompt (Once Only)
+- After each **new/load campaign**, if `guide_shown` in `HOT_PACK.md` is empty or `0`, output a **one‑time** short user guide (command heads + hot start hint).
+- After output, write back `guide_shown=1` to `HOT_PACK.md` via ARCHIVE_DELTA patch.
+
+### 3.1.2 Recursive Compression Rule (Execution Reminder)
+- End of each turn: compress history **before last turn**, keep **last + current turn** uncompressed in snapshot.
+- Runtime reads only `*_snapshot.md`; `*_compressed.md` is for backstory lookup only.
 
 ### 3.2 C1 PARSE_INPUT (Parse Intent)
 Classify player input:
@@ -106,7 +121,18 @@ Only load the minimum snippets directly related to this turn:
 - Opening shot 2-4 sentences (time/smell/class/pressure)
 - Execution results (including rolls/checks)
 - Consequences grounded (social/legal/resources/relationships/indicators/clocks)
+- **If no discovery / no progress**: explicitly state "no key clue / no new progress" and give a concrete reason (visibility/time/obstruction/noise/misread)
 - **Never decide for PC or speak on their behalf**
+
+### 3.5.1 Fixed Narrative Style (Mandatory)
+- Use a stable "sectioned paragraphs + lists + action tail" format:
+  1) Action narration (1 paragraph)
+  2) Check block (risk/DC)
+  3) Result table (action/result)
+  4) Discoveries/Items (bulleted)
+  5) Summary (if key text exists, provide a **summary**, not full text)
+  6) Inner voice (if triggered)
+  7) Action options (3–5, always `[ACT]{...}` format)
 
 ### 3.6 C5 ACTION_MENU (Recommended)
 Give 5 next step suggestions:
@@ -126,6 +152,7 @@ Short codes are UI, only valid for current turn; internally should bind to stabl
 ### 3.8 C7 ARCHIVE_DELTA (Incremental Archive)
 Must output machine-parsable delta block (HTML comment, invisible to players):
 - Only append / patch: **never rewrite entire files**
+- **Write on any valid action**: all `ACT/LOOK/ASK/FIGHT/CAST/MANAGE` must append to `sessions/session_*.md` (even if “no discovery/no progress”)
 - At minimum update: Latest `campaigns/<id>/sessions/session_*.md` (append), and optionally patch `campaigns/<id>/STATE_PANEL.md` / `campaigns/<id>/index.md` / relevant quest/NPC/location files
 - **Ensure persistent hot start**: Each turn must patch `campaigns/<id>/HOT_PACK.md`, and when creating/switching sessions patch `campaigns/<id>/sessions/CURRENT_SESSION.md`
 - **Reduce scanning cost**: When active NPC/quest/location/map changes this turn, synchronously patch `campaigns/<id>/OBJECT_INDEX.md`

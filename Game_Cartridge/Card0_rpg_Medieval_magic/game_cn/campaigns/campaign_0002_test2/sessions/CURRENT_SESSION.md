@@ -1,2 +1,0 @@
-sessions/session_0000_bootstrap.md
-

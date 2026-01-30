@@ -1,1 +1,0 @@
-active_campaign: campaigns/campaign_0001

@@ -17,6 +17,8 @@
 - 状态面板已填充：`campaigns/<id>/STATE_PANEL.md`
 - 热启动包已写入：`campaigns/<id>/HOT_PACK.md`（`CONTEXT_PACK_NEXT`）
 - DM 规划文件存在：`.DM_PLANNER.md`（隐藏，不对玩家泄露）
+- **主线蓝图存在**：`campaigns/<id>/.DM_BLUEPRINT.md`（主线/关键人物/关系网）
+- **主线面板存在**：`campaigns/<id>/MAINLINE_PANEL.md`
 
 ---
 
@@ -61,6 +63,24 @@
 - Patch `campaigns/<id>/sessions/CURRENT_SESSION.md` 指向新文件
 - Patch `campaigns/<id>/STATE_PANEL.md`：时间/地点/指标初始化、任务空表、时钟空表
 - Patch `campaigns/<id>/HOT_PACK.md` 写入首个 `CONTEXT_PACK_NEXT`
+- Patch `campaigns/<id>/MAINLINE_PANEL.md`（写入主线状态）
+
+### Step D：主线蓝图生成（幕后，强制）
+基于 **世界设定 + 玩家偏好** 生成幕后大纲（不展示给玩家）：
+- 2–4 条主线剧情（每条 1 句）
+- 5–8 个关键 NPC（姓名/立场/关系）
+- 关键冲突与主题（2–4 条）
+- 关系网（最多 8 条边，A—关系—B）
+- 变体空间：可替换的支线入口（2–3 条）
+
+写入 `campaigns/<id>/.DM_BLUEPRINT.md`，并在 `HOT_PACK.md` 顶部写入 4–6 行 **SPINE 摘要**（≤6 行）：
+```
+SPINE:
+- 主线1…
+- 主线2…
+KEY_NPCS: A, B, C
+THEME: ...
+```
 
 ---
 
