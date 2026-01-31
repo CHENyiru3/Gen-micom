@@ -1,5 +1,8 @@
 {
-  "spine": ["主线1（占位）", "主线2（占位）"],
+  "spine": [
+    "主线1（占位）",
+    "主线2（占位）"
+  ],
   "key_npcs": [],
   "theme": "",
   "mainline": "",
@@ -8,6 +11,8 @@
     "loc": "",
     "pc": "",
     "guide_shown": 0,
-    "flags": ""
+    "flags": "",
+    "voice": "",
+    "tone": ""
   }
 }

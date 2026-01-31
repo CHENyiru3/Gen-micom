@@ -3,49 +3,144 @@
   "schemas": {
     "STATE_PANEL": {
       "type": "object",
-      "required": ["time", "location", "indicators"],
+      "required": [
+        "time",
+        "location",
+        "indicators"
+      ],
       "properties": {
-        "time": {"type": "string"},
-        "location": {"type": "string"},
-        "indicators": {"type": "object"},
-        "clocks": {"type": "array", "items": {"type": "object"}},
-        "inventory": {"type": "array", "items": {"type": "string"}},
-        "notes": {"type": "array", "items": {"type": "string"}}
+        "time": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "indicators": {
+          "type": "object"
+        },
+        "clocks": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "inventory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "HOT_PACK": {
       "type": "object",
-      "required": ["spine", "context"],
+      "required": [
+        "spine",
+        "context"
+      ],
       "properties": {
-        "spine": {"type": "array", "items": {"type": "string"}},
-        "key_npcs": {"type": "array", "items": {"type": "string"}},
-        "theme": {"type": "string"},
-        "mainline": {"type": "string"},
-        "context": {"type": "object"}
+        "spine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "key_npcs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "theme": {
+          "type": "string"
+        },
+        "mainline": {
+          "type": "string"
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "voice": {
+              "type": "string"
+            },
+            "tone": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "MAINLINE_PANEL": {
       "type": "object",
-      "required": ["mainline", "next_beat"],
+      "required": [
+        "mainline",
+        "next_beat"
+      ],
       "properties": {
-        "mainline": {"type": "array", "items": {"type": "string"}},
-        "next_beat": {"type": "array", "items": {"type": "string"}},
-        "key_npcs": {"type": "array", "items": {"type": "string"}}
+        "mainline": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_beat": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "key_npcs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "OBJECT_INDEX": {
       "type": "object",
       "properties": {
-        "npcs": {"type": "array", "items": {"type": "object"}},
-        "locations": {"type": "array", "items": {"type": "object"}},
-        "quests": {"type": "array", "items": {"type": "object"}},
-        "items": {"type": "array", "items": {"type": "object"}}
+        "npcs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "quests": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
       }
     },
     "CLUE_LOG": {
       "type": "object",
       "properties": {
-        "clues": {"type": "array", "items": {"type": "object"}}
+        "clues": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
       }
     }
   }

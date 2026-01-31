@@ -1,0 +1,2 @@
+active_campaign: isekai_gal_01_camp_01
+path: Game_Cartridge/isekai_gal_project/game_cn/campaigns/isekai_gal_01_camp_01

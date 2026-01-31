@@ -1,0 +1,25 @@
+{
+  "time": "Day 1 / Morning",
+  "location": "@loc_ponyville",
+  "indicators": {"Heat": 0, "Rumor": 0, "Debt": 0, "Bond": 1, "RouteClear": 0},
+  "clocks": [],
+  "inventory": [
+    "人类物品：旧手机（无信号，电量不明）",
+    "人类物品：小笔记本与笔（用于记录小马语与日程）"
+  ],
+  "housing": {
+    "status": "temporary_guest_room",
+    "location": "友谊城堡（临时客房）",
+    "privacy": "high"
+  },
+  "notes": [
+    "PC=独角兽（Unicorn）；Cutie Mark=暂无（Blank Flank）",
+    "人类世界记忆：存在但细节可在DM对话中逐步确认",
+    "LeavePonyvilleGate=locked（RouteClear>=1 后解锁）",
+    "紫悦外观为‘角+翅膀’的稀有类型（天角兽）；在广场公开谈论会引发关注。",
+    "雾凇自述：醒来时有‘声音’提示姓名；对原本世界与细节记忆模糊（私下告知紫悦）。",
+    "雾凇确认信息：成年雄马独角兽；能隐约感到魔法但尚不会用；自认为今日刚从异世界穿越而来（暂不公开）。"
+    ,
+    "短暂不适：出现燥热感，疑似应激/魔力上涌；紫悦已采取降温补水并观察（未见明确外溢）。"
+  ]
+}

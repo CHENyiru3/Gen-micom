@@ -1,5 +1,8 @@
 {
-  "spine": ["Mainline 1 (placeholder)", "Mainline 2 (placeholder)"],
+  "spine": [
+    "Mainline 1 (placeholder)",
+    "Mainline 2 (placeholder)"
+  ],
   "key_npcs": [],
   "theme": "",
   "mainline": "",
@@ -8,6 +11,8 @@
     "loc": "",
     "pc": "",
     "guide_shown": 0,
-    "flags": ""
+    "flags": "",
+    "voice": "",
+    "tone": ""
   }
 }

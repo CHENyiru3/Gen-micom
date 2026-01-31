@@ -446,6 +446,75 @@
           "path"
         ]
       }
+    },
+    {
+      "name": "generate_questionnaire",
+      "description": "Generate a scope-specific questionnaire for AUTHOR/BUILDER based on context",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "AUTHOR",
+              "BUILDER"
+            ]
+          },
+          "scope": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "role",
+          "scope",
+          "language"
+        ]
+      }
+    },
+    {
+      "name": "roll_check",
+      "description": "Roll a d20 check with optional advantage/disadvantage and modifier",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dc": {
+            "type": "integer"
+          },
+          "modifier": {
+            "type": "integer"
+          },
+          "advantage": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "advantage",
+              "disadvantage"
+            ]
+          },
+          "pc_path": {
+            "type": "string"
+          },
+          "stat": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "dc",
+          "advantage"
+        ]
+      }
     }
   ]
 }

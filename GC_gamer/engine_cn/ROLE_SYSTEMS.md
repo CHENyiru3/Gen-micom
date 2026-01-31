@@ -8,6 +8,7 @@
 
 ### A) 内容创作者（Content Author）
 **目标**：创建/扩展卡带（世界设定、索引、对象库）。
+**职责范围**：背景/基调/机制/世界规则/角色与地点库/路线框架。
 **允许读取**：
 - `cartridges/<id>/CARTRIDGE.md`
 - `cartridges/<id>/lore/**`
@@ -19,6 +20,7 @@
 
 ### B) 战役创建者（Campaign Builder）
 **目标**：复制模板、绑定卡带、初始化战役。
+**职责范围**：补充细节、确定主线/支线骨架、落盘运行态（仅 campaign）。
 **允许读取**：
 - `engine/INIT_PROTOCOL.md`
 - `engine/CAMPAIGN_PROTOCOL.md`
@@ -55,4 +57,3 @@
 - **主线骨架**由 `.DM_BLUEPRINT.md` 定义（初始化生成）
 - DM 必须保持主线不偏离；支线只能“围绕主线推进”，不得替换主线
 - 如果玩家偏离：给出支线分支，但保留主线回归入口
-

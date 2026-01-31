@@ -1,0 +1,30 @@
+{
+  "spine": [
+    "以‘外来雄马’身份在小马谷站稳脚跟（控制 Heat/Rumor）",
+    "在 Mane Six 的日常与委托中推进关系，并完成首条女主路线以解锁远行",
+    "卷入一条轻政治/轻冒险的原创暗线：谣言与伪装在镇上扩散"
+  ],
+  "key_npcs": [
+    "@npc_twilight_sparkle",
+    "@npc_applejack",
+    "@npc_rarity",
+    "@npc_fluttershy",
+    "@npc_rainbow_dash",
+    "@npc_pinkie_pie",
+    "@npc_princess_celestia",
+    "@npc_princess_luna",
+    "@npc_queen_chrysalis",
+    "@npc_derpy_hooves",
+    "@npc_lyra_heartstrings"
+  ],
+  "theme": "微冒险 / 微政治 / 后宫 / 纯爱 / 日常（可多线推进，纯爱可锁线）",
+  "mainline": "开局收束在小马谷；完成首条女主‘完全攻略’后解锁多城剧情。",
+  "context": {
+    "t": "Day 1 / Morning",
+    "loc": "@map_ponyville_core",
+    "pc": "雾凇",
+    "guide_shown": 1,
+    "flags": "LeavePonyvilleGate=locked",
+    "last_turn": "Turn 0019: 突发燥热不适并求助；随机检定（d20=10<DC12）显示更像应激/魔力上涌叠加，未见明确外溢，紫悦转为降温补水与观察，必要时求助医疗/检查。"
+  }
+}

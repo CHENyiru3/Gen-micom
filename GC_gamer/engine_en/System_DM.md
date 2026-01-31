@@ -29,6 +29,7 @@
 - **No new facts on load**: only restate `*_snapshot.md` + `HOT_PACK.json`
 - Must label as “Load Summary”, do not advance plot
 - Narrative format must follow the **Fixed Narrative Style** in `engine/KERNEL_PROMPT.md`
+- **Voice & camera**: read `HOT_PACK.json.context.voice/tone`; avoid “cold summary style”
 
 ---
 

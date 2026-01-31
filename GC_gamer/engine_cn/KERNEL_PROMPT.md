@@ -118,6 +118,7 @@
 - **失败前进**：只在存在明确风险/代价时使用（失败＝代价 + 新局势）
 - 结算指标变化（见 `cartridges/<id>/lore/MECHANICS/INDICATORS.md`）
 - 推进时钟（若存在）
+- **检定公平性**：采用 `engine/mechanics/HOUSE_RULES.md` 的 DC/修正/优势劣势；不可能行动直接失败（或给出高代价替代）。
 
 ### 3.5 C4 SCENE_NARRATE（叙事输出）
 - 开场画面 2–4 句（时间/气味/阶层/压力）

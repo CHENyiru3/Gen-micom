@@ -1,0 +1,20 @@
+{
+  "mainline": [
+    "主线A：雾凇在小马谷建立身份与生活节奏（Heat/Rumor 受控）",
+    "主线B：与 Mane Six 的日常互动逐步推进关系，完成首条女主路线（RouteClear>=1）",
+    "主线C：原创暗线——‘不自然的谣言与伪装’在镇上扩散（轻政治/轻冒险）"
+  ],
+  "next_beat": [
+    "与紫悦确认‘你是谁/从何而来’的可公开口径（降低 Heat 风险）",
+    "被委托参与一场小马谷活动筹备（与 Mane Six 全员同场）",
+    "发现一条异常谣言的源头线索（不裁定结果）"
+  ],
+  "key_npcs": [
+    "@npc_twilight_sparkle",
+    "@npc_pinkie_pie",
+    "@npc_rarity",
+    "@npc_applejack",
+    "@npc_fluttershy",
+    "@npc_rainbow_dash"
+  ]
+}

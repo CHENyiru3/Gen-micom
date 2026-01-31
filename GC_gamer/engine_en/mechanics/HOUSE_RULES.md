@@ -19,6 +19,30 @@ Last Updated: 2026-01-29
 - **D20 + Attribute Modifier** for checks
 - **Advantage/Disadvantage** given based on situation
 
+### Check Framework (Unified)
+
+**Difficulty (DC)**
+- Easy: 8
+- Standard: 12
+- Hard: 16
+- Extreme: 20
+
+**Situational Modifiers (Fair DM judgment)**
+- Prepared/tools/info: +2
+- Unfavorable/time pressure/interference: -2
+- Clearly impossible: **no roll, auto-fail** (or offer a “costly alternative”)
+
+**Advantage/Disadvantage (non-stacking)**
+- Advantage: roll twice, take higher
+- Disadvantage: roll twice, take lower
+- Both present: cancel to normal
+
+**Result Tiers**
+- Failure (< DC): no progress + cost
+- Partial (= DC): small progress + small cost
+- Success (> DC): progress
+- Great success (≥ DC + 5): progress + extra clue/benefit
+
 ---
 
 ## Action Syntax

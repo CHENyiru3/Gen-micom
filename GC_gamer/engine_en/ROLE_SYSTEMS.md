@@ -8,6 +8,7 @@
 
 ### A) Content Author
 **Goal**: create/extend cartridge content (world lore, indices, object libraries).
+**Scope**: background/tone/mechanics/world rules/character & location libraries/route frameworks.
 **May read**:
 - `cartridges/<id>/CARTRIDGE.md`
 - `cartridges/<id>/lore/**`
@@ -19,6 +20,7 @@
 
 ### B) Campaign Builder
 **Goal**: copy template, bind cartridge, initialize a campaign.
+**Scope**: add details, define mainline/side arcs, persist runtime state (campaign only).
 **May read**:
 - `engine/INIT_PROTOCOL.md`
 - `engine/CAMPAIGN_PROTOCOL.md`
@@ -54,4 +56,3 @@
 
 - The **mainline spine** is defined in `.DM_BLUEPRINT.md` (generated at init)
 - DM must keep the mainline intact; side quests can branch but must keep a return path
-

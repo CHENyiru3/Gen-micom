@@ -8,6 +8,21 @@
 - Produce **indexable, reusable world content**
 - Keep structure stable, RAG‑friendly, handles consistent
 - Do not write plot progression or player outcomes
+- **Only define background/tone/mechanics/world rules/character & location libraries/route frameworks**
+
+## 0.1 Question‑First Clarification (Required)
+Before authoring, ask to define scope:
+1. World name + one‑line premise?
+2. Tone & genre range (e.g., isekai campus, light mystery, cozy romance)?
+3. One‑line world rule / magic system (no plot triggers)?
+4. Global factions / power blocks (2–4)?
+5. World scale & boundaries (city/kingdom/multiverse)?
+
+> JSON tool_calls available: `generate_questionnaire` to create scope‑specific questions.
+
+## 0.2 Enforcement (Non‑skippable)
+- Until 0.1 questions + scope summary are confirmed: **do not write any cartridge files**.
+- If user refuses to answer: record a “pending scope” list and stop creation.
 
 ---
 

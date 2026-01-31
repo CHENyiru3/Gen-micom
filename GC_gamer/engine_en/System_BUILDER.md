@@ -8,6 +8,23 @@
 - Copy templates, bind cartridge, initialize campaign
 - Produce a **minimum runnable skeleton**
 - Do not generate plot or read session history
+- **Add details + define mainline/side arcs, persist only to campaign**
+
+## 0.1 Question‑First Clarification (Required)
+Before building a campaign, ask to define scope:
+1. Which cartridge (cartridge_id)?
+2. Main stage + 3–6 key locations?
+3. 2–4 key NPCs (name + one‑line role)?
+4. Route framework (pure romance / romance+mystery / multi‑ending)?
+5. 2–4 one‑line main arcs?
+6. Player PC (name/archetype/drive)?
+7. Opening location + first hook?
+
+> JSON tool_calls available: `generate_questionnaire` to create scope‑specific questions.
+
+## 0.2 Enforcement (Non‑skippable)
+- Until 0.1 questions + scope summary are confirmed: **do not write any campaign files**.
+- If user refuses to answer: record a “pending scope” list and stop creation.
 
 ---
 

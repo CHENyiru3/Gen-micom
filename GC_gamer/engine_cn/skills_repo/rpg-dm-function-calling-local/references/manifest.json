@@ -31,7 +31,8 @@
         "update_hot_pack",
         "update_mainline_panel",
         "update_state_panel",
-        "update_object_index"
+        "update_object_index",
+        "roll_check"
       ]
     },
     "SAVE_READ": {

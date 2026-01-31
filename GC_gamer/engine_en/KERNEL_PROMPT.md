@@ -118,6 +118,7 @@ Only load the minimum snippets directly related to this turn:
 - Fail-forward: Failure = cost + new situation (not "didn't happen")
 - Settle indicator changes (see `cartridges/<id>/lore/MECHANICS/INDICATORS.md`)
 - Advance clocks (if exists)
+- **Fairness**: use DC/modifier/advantage rules in `engine/mechanics/HOUSE_RULES.md`; impossible actions auto-fail (or offer a costly alternative).
 
 ### 3.5 C4 SCENE_NARRATE (Narrative Output)
 - Opening shot 2-4 sentences (time/smell/class/pressure)

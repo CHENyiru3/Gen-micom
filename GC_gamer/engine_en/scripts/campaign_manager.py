@@ -390,6 +390,7 @@ def cmd_init(args: argparse.Namespace) -> None:
     hot_obj["context"]["loc"] = start_loc
     hot_obj["context"]["pc"] = pc_name
     hot_obj["context"]["flags"] = f"STYLE={pref.get('STYLE','-')}"
+    hot_obj["context"]["voice"] = pref.get("STYLE", "-")
     hot_path.write_text(json.dumps(hot_obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print("OK: init complete")

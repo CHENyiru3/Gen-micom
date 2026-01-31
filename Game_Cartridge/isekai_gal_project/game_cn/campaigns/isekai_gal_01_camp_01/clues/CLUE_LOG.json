@@ -1,0 +1,18 @@
+{
+  "clues": [
+    {
+      "id": "c000",
+      "handle": "@clue_anomalous_residue",
+      "source": "bootstrap",
+      "summary": "雾凇出现地点附近残留一丝不自然的魔法痕迹（与常见独角兽施法不同）。",
+      "status": "pending"
+    },
+    {
+      "id": "c001",
+      "handle": "@clue_precise_rumor",
+      "source": "bootstrap",
+      "summary": "镇上开始出现‘精准刺痛关系’的谣言苗头，像是有人在试探社交网络。",
+      "status": "pending"
+    }
+  ]
+}

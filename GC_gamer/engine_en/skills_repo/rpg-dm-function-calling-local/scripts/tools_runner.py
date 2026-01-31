@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 import sys
+import random
 from pathlib import Path
 
 
@@ -224,6 +225,36 @@ def tool_validate_no_new_facts(args: dict) -> dict:
     ok = all(line.strip() in hay for line in out.splitlines() if line.strip())
     return {"status": "ok" if ok else "violation"}
 
+def tool_roll_check(args: dict) -> dict:
+    dc = int(args["dc"])
+    mod = int(args.get("modifier", 0))
+    pc_path = args.get("pc_path")
+    stat = args.get("stat")
+    if pc_path and stat and mod == 0:
+        try:
+            text = Path(pc_path).read_text(encoding="utf-8")
+            for line in text.splitlines():
+                if line.strip().startswith("| Modifiers |"):
+                    raw = line.split("|", 3)[2].strip()
+                    data = json.loads(raw) if raw.startswith("{") else {}
+                    if stat in data and isinstance(data[stat], int):
+                        mod = int(data[stat])
+        except Exception:
+            pass
+    adv = args["advantage"]
+    d1 = random.randint(1, 20)
+    d2 = random.randint(1, 20)
+    if adv == "advantage":
+        roll = max(d1, d2)
+        rolls = [d1, d2]
+    elif adv == "disadvantage":
+        roll = min(d1, d2)
+        rolls = [d1, d2]
+    else:
+        roll = d1
+        rolls = [d1]
+    total = roll + mod
+    return {"dc": dc, "modifier": mod, "advantage": adv, "rolls": rolls, "total": total, "success": total >= dc}
 
 def tool_register_handle(args: dict) -> dict:
     cart = Path(args["cartridge_path"]).resolve()
@@ -250,6 +281,53 @@ def tool_validate_index_spec(args: dict) -> dict:
     required = ["RAG_HEAD:", "Handle Mapping", "Entry Pointers"]
     missing = [r for r in required if r not in text]
     return {"status": "ok" if not missing else "missing", "missing": missing}
+
+
+def tool_generate_questionnaire(args: dict) -> dict:
+    role = args["role"]
+    scope = args.get("scope", "")
+    language = args.get("language", "zh-CN")
+    count = int(args.get("count", 6))
+    if role == "AUTHOR":
+        base = [
+            "世界名/一句话设定是什么？",
+            "基调与题材范围（如：异世界校园、轻悬疑、温柔向）？",
+            "世界规则/魔法体系一句话（不涉及具体剧情触发）？",
+            "全局势力/阵营框架（2–4 个）？",
+            "世界尺度与边界（城市/国家/跨界）？",
+            "希望保留或避免的主题（可选）？",
+        ]
+    else:
+        base = [
+            "使用哪个卡带（cartridge_id）？",
+            "主舞台与 3–6 个关键地点？",
+            "2–4 个关键 NPC（名字 + 一句定位）？",
+            "路线框架（纯恋爱/恋爱+悬疑/多结局）？",
+            "主线 2–4 条一句话大纲？",
+            "玩家当前 PC（名字/身份/驱动力）？",
+            "开局地点与第一钩子？",
+        ]
+    if language == "en":
+        base = [
+            "World name + one-line premise?",
+            "Tone & genre range (e.g., isekai campus, light mystery, cozy romance)?",
+            "One-line world rule / magic system (no plot triggers)?",
+            "Global factions / power blocks (2–4)?",
+            "World scale & boundaries (city/kingdom/multiverse)?",
+            "Themes to keep/avoid (optional)?",
+        ] if role == "AUTHOR" else [
+            "Which cartridge (cartridge_id)?",
+            "Main stage + 3–6 key locations?",
+            "2–4 key NPCs (name + one-line role)?",
+            "Route framework (pure romance / romance+mystery / multi-ending)?",
+            "2–4 one-line main arcs?",
+            "Player PC (name/archetype/drive)?",
+            "Opening location + first hook?",
+        ]
+    qs = base[:count]
+    if scope:
+        qs.insert(0, f"[Scope] {scope}")
+    return {"role": role, "questions": qs}
 
 
 def _load_manifest(role: str | None) -> set[str] | None:
@@ -299,6 +377,8 @@ TOOLMAP = {
     "validate_no_new_facts": tool_validate_no_new_facts,
     "register_handle": tool_register_handle,
     "validate_index_spec": tool_validate_index_spec,
+    "generate_questionnaire": tool_generate_questionnaire,
+    "roll_check": tool_roll_check,
 }
 
 

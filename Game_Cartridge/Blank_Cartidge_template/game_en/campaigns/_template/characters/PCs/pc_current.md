@@ -8,3 +8,4 @@
 | Strengths | - |
 | Weakness | - |
 | Background Hook | - |
+| Modifiers | {} |

@@ -29,6 +29,7 @@
 - **读档时禁止新增事实**：只重述 `*_快照.md` 与 `HOT_PACK.json`
 - 必须标记为“读档摘要”，不推进剧情
 - 叙事格式必须遵循 `engine/KERNEL_PROMPT.md` 的“固定叙事样式”
+- **语气与镜头**：从 `HOT_PACK.json.context.voice/tone` 读取风格，不得输出“冷淡摘要体”
 
 ---
 
